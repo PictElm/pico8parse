@@ -75,6 +75,8 @@
       , './spec/local'
       , './spec/misc'
       , './spec/operators'
+      , './spec/pico8extra'
+      , './spec/pico8fileformat'
       , './spec/repeat'
       , './spec/return'
       , './spec/scope'
@@ -181,6 +183,7 @@
       switch (node.type) {
         case 'LocalStatement':
         case 'AssignmentStatement':
+        case 'AssignmentOperatorStatement':
           visitKey('variables');
           visitKey('init');
           break;
@@ -470,7 +473,11 @@
       "type": "Chunk", "body": [{"type": "ReturnStatement", "arguments": [], "loc": {"start": {"line": 2, "column": 0}, "end": {"line": 2, "column": 6}}, "range": [15, 21]}], "loc": {"start": {"line": 2, "column": 0}, "end": {"line": 2, "column": 6}}, "range": [15, 21], "comments": []
     }, 'should ignore shebangs');
 
-    this.done(11);
+    this.deepEqual(luaparse.parse('pico-8 cartridge // http://www.pico-8.com\nversion VER\n__lua__\nprint()', { luaVersion: 'PICO-8', locations: true, ranges: true }), {
+      "type": "Chunk", "body": [{"type": "CallStatement", "expression": {"type": "CallExpression", "base": {"type": "Identifier", "name": "print", "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 5}}, "range": [62, 67]}, "arguments": [], "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69]}, "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69]}], "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69], "comments": []
+    }, 'should ignore p8 headers');
+
+    this.done(12);
   });
 
   suite.addTest('Option validation', function() {

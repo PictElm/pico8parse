@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Luaparse</title>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <style>
+      .hero-unit .nav-pills a {
+        font-size: 70%;
+        color: #797979;
+        margin-top: 4px;
+      }
+      .hero-unit .nav-pills a:hover {
+        text-decoration: underline;
+      }
+      h2, h3, h4 { margin-top: 1em; }
+    </style>
+  </head>
+  <body>
+    <div class="hero-unit">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <h1>Pico8parse</h1>
+            <p>A Lua parser written in JavaScript, with support for the PICO-8 flavour.<br/>Luaparse is originally written by Oskar Schöldström for his bachelor's thesis at Arcada.</p>
+          </div>
+          <div class="span6" style="padding-top: 35px;">
+            <div class="btn-group">
+              <a class="btn" href="https://github.com/PictElm/pico8parse">GitHub</a>
+              <a class="btn" href="https://github.com/fstirlitz/luaparse">Original Project</a>
+              <a class="btn" href="test/index.html">Tests</a>
+            </div>
+            <ul class="nav nav-pills">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="fork.html">About this fork</a></li>
+              <li><a href="coverage.html">Coverage</a></li>
+              <li><a href="examples.html">Examples</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+<p>This is a fork of the <a href="fstirlitz.github.io/luaparse">luaparse</a> by Oskar Schöldström (and other).</p>
+<p>See <a href="README-luaparse.md">the original README</a> or the linked GitHub above for more information about it. If the intention is to use the present JavaScript package, the original README is probably the first thing to look at.</p>
+<p>The intention is to add support for the PICO-8 flavour of Lua which brings a few new syntaxes, tokens and a whole file format (all described after).</p>
+<h2 id="a-fork-of-the-luaparse">A Fork of the luaparse</h2>
+<p>A few changes were made regarding the versions of Lua that were already supported by the original luaparse:</p>
+<ul>
+<li>from Lua 5.2 onward, hex numerals may start with a dot: <code>a = 0x.A</code> is valid</li>
+<li>the parser state would not be entirely reset (which had no impact until it did)</li>
+<li>maybe that&#39;s wrong but longstring comments were discarding any first newline right after the last <code>[</code></li>
+<li>a, hum, &quot;replacement&quot; to <code>make</code> was... attempted (as the <code>make.ps1</code>)</li>
+<li>(as a side note: version feature &quot;inheritance&quot;)</li>
+</ul>
+<p>Ideally, no breaking changes were added in regard to the parsing of Lua 5.1, 5.2, 5.3 and LuaJIT. These versions should still behave the same outside of the mentioned points above. Hopefully, this fork would stay up-to-date with its upstream.</p>
+<h2 id="other-mentions-and-thanks">Other Mentions and Thanks</h2>
+<p>The <a href="https://pico-8.fandom.com/wiki/Pico-8_Wikia">PICO-8 Wikia</a> proved a great help at gathering random information about the API.</p>
+<p>As well as the <a href="https://github.com/mpeterv/luacheck">luacheck</a> project and the <a href="https://github.com/dansanderson/picotool">picotool</a>.</p>
+<p>And obviously zep &commat;lexaloffle and their <a href="https://www.lexaloffle.com/pico-8.php">PICO-8</a> fantasy console.</p>
+<h1 id="support-for-the-pico-8-flavour-of-lua">Support for the PICO-8 Flavour of Lua</h1>
+<p>The PICO-8 Lua is based of the 5.2 version of the Lua language, a such most 5.2 syntaxes and behavior are present in PICO-8 Lua.</p>
+<p>The values added for the parser <code>luaVersion</code> option are:</p>
+<ul>
+<li><code>&#39;PICO-8&#39;</code> (should not be used, just for feature inheritance)</li>
+<li><code>&#39;PICO-8-0.2.1&#39;</code></li>
+<li><code>&#39;PICO-8-0.2.2&#39;</code> (adds support for some escape sequences)</li>
+</ul>
+<blockquote>
+<p>Disclaimer: the first implemented version is from PICO-8 0.2.1. Furthermore, this was mainly developed and tested with 0.2.1 as of yet.</p>
+</blockquote>
+<h2 id="miscellaneous">Miscellaneous</h2>
+<p>PICO-8 Lua reads <code>//</code> as a single line comment (similarly to C-inspired languages). Do note that this is not a simple alias for <code>--</code> as it will not start a longstring comment:</p>
+<pre><code class="language-js">// comment
+
+//[[ comment
+  not comment,
+  but syntax error
+]]</code></pre>
+<p>Adding to the list of changes to comments, longstring comments cannot use the <code>=</code> as depth:</p>
+<pre><code>--[==[ comment
+  not comment but syntax error
+  (no MD highlight to show that)
+]==]</code></pre><p>This syntax is kept for actual strings:</p>
+<pre><code class="language-lua">local text = [==[hey
+how&#39;s it going?]==]
+print(text)</code></pre>
+<h2 id="numerals">Numerals</h2>
+<h3 id="binary-literal">Binary Literal</h3>
+<p>PICO-8 accepts binary notation for numeral the same way Lua 5.2+ does for hexadecimal:</p>
+<ul>
+<li><code>0b101010</code>: 42</li>
+<li><code>0b0.1</code>: 0.5</li>
+<li><code>0b10.</code>: 2.</li>
+<li><code>0b.01</code>: .125</li>
+</ul>
+<h3 id="no-exponent-no-complex-no-unsigned-nor-long">No Exponent, no Complex, no Unsigned nor Long</h3>
+<p>Lua numerals can consist of trailing &quot;U&quot;, &quot;I&quot; and &quot;L&quot;s, none of which is a supported notation for PICO-8. The same way, the exponential and binary exponential notations are seen as error:</p>
+<ul>
+<li><code>2.1i</code></li>
+<li><code>4U</code></li>
+<li><code>0xB0p99</code></li>
+<li><code>0.31416E1</code></li>
+<li>and so on...</li>
+</ul>
+<h2 id="operators">Operators</h2>
+<h3 id="unary-operators">Unary Operators</h3>
+<p>The following are unary operators on a number (with the same precedence as <code>-</code>, <code>~</code> and <code>not</code>):</p>
+<ul>
+<li><code>@</code> example <code>@0x2000</code></li>
+<li><code>$</code> example <code>$-1</code></li>
+<li><code>%</code> example <code>%100</code></li>
+</ul>
+<h3 id="binary-operators">Binary Operators</h3>
+<p>Here is a set of bitwise operators (so on numbers)</p>
+<ul>
+<li>logical shift right: <code>&gt;&gt;&gt;</code> (ignores the sign)</li>
+<li>rotate left: <code>&lt;&lt;&gt;</code></li>
+<li>rotate right: <code>&gt;&gt;&lt;</code></li>
+<li>the bitwise xor from Lua (<code>~</code>) is replaced with the token <code>^^</code></li>
+</ul>
+<p>The Lua integer division (usually written <code>//</code>) represents a single line comment in PICO-8 so the <code>\</code> is used instead.</p>
+<p>This flavour also implement the <code>!=</code> as an alias for <code>~=</code>.</p>
+<p>The shift and rotates have the same precedence as Lua&#39;s shift operators <code>&lt;&lt;</code> and <code>&gt;&gt;</code>. The exclusive or, not-equal and integer division keep the same precedence.</p>
+<h3 id="assignment-operations">Assignment Operations</h3>
+<p>Every binary operator that is not a comparison have an assignment syntax. The full list is:</p>
+<table>
+<thead>
+<tr>
+<th>assignment</th>
+<th>equivalent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>a += b</code></td>
+<td><code>a = a + b</code></td>
+</tr>
+<tr>
+<td><code>a -= b</code></td>
+<td><code>a = a - b</code></td>
+</tr>
+<tr>
+<td><code>a *= b</code></td>
+<td><code>a = a * b</code></td>
+</tr>
+<tr>
+<td><code>a /= b</code></td>
+<td><code>a = a / b</code></td>
+</tr>
+<tr>
+<td><code>a \= b</code></td>
+<td><code>a = a \ b</code></td>
+</tr>
+<tr>
+<td><code>a %= b</code></td>
+<td><code>a = a % b</code></td>
+</tr>
+<tr>
+<td><code>a ^= b</code></td>
+<td><code>a = a ^ b</code></td>
+</tr>
+<tr>
+<td><code>a ..= b</code></td>
+<td><code>a = a .. b</code></td>
+</tr>
+<tr>
+<td><code>a |= b</code></td>
+<td><code>a = a | b</code> <!-- the back-slash is only here because it breaks the table otherwise --></td>
+</tr>
+<tr>
+<td><code>a &amp;= b</code></td>
+<td><code>a = a &amp; b</code></td>
+</tr>
+<tr>
+<td><code>a ^^= b</code></td>
+<td><code>a = a ^^ b</code></td>
+</tr>
+<tr>
+<td><code>a &lt;&lt;= b</code></td>
+<td><code>a = a &lt;&lt; b</code></td>
+</tr>
+<tr>
+<td><code>a &gt;&gt;= b</code></td>
+<td><code>a = a &gt;&gt; b</code></td>
+</tr>
+<tr>
+<td><code>a &gt;&gt;&gt;= b</code></td>
+<td><code>a = a &gt;&gt;&gt; b</code></td>
+</tr>
+<tr>
+<td><code>a &lt;&lt;&gt;= b</code></td>
+<td><code>a = a &lt;&lt;&gt; b</code></td>
+</tr>
+<tr>
+<td><code>a &gt;&gt;&lt;= b</code></td>
+<td><code>a = a &gt;&gt;&lt; b</code></td>
+</tr>
+</tbody></table>
+<p>It must be noted that for this syntax to be implemented, a new type of AST node was added under the name of <code>&#39;AssignmentOperatorStatement&#39;</code>. These present the properties <code>variables</code> and <code>init</code> of an <code>&#39;AssignmentStatement&#39;</code> as well as the <code>operator</code> of a <code>&#39;BinaryExpression&#39;</code> node.</p>
+<h2 id="single-line-statements">Single Line Statements</h2>
+<blockquote>
+<p>Important notice: this feature introduces a meaning to a new-line sequence, which is a blank character and get ignored by Lua.</p>
+</blockquote>
+<h3 id="idea">Idea</h3>
+<p>This syntax introduce the possibility to write certain block without having to specify its bounds using tokens, similarly to some other languages (for example an <code>if</code> statement in JavaScript do no need curly brackets when its body consists of only one &quot;line&quot; of instructions).</p>
+<pre><code class="language-lua">if (condition) instruction1()
+instruction2()
+
+-- is semantically the same as
+
+if condition then instruction1() end instruction2()</code></pre>
+<pre><code class="language-lua">if (condition) instruction1() else instruction2()
+
+-- is semantically the same as
+
+if condition then instruction1() else instruction2() end</code></pre>
+<pre><code class="language-lua">while (condition) instruction()
+
+-- is semantically the same as
+
+while condition do instruction() end</code></pre>
+<p>Notice how:</p>
+<ul>
+<li>the parenthesis enclosing the condition are necessary</li>
+<li>this syntax of the <code>if</code> statement cannot present an <code>elseif</code> clause</li>
+<li>no instruction are present after the syntax <em>on the same line</em></li>
+</ul>
+<h3 id="quirks">Quirks</h3>
+<p>While this change initially only apply to the <code>if</code> and <code>while</code> statements, its actual implementation in the PICO-8 Lua runtime leads to unexpectedly correct or incorrect syntaxes which also impacts the standard <code>do</code>, <code>function</code> and <code>for</code> amongst other things.</p>
+<p>Without any evidences to back the following claims as to how PICO-8 parses its Lua, testings have shown that the behavior of the actual implementation are similar to applying the following preprocessing to the raw script:</p>
+<p>If a line contains an <code>if</code> token (resp. <code>while</code>) which does not present an associated <code>then</code> token (resp. <code>do</code>) right after its condition, the very next new-line sequence (or if lack thereof, end-of-file) is treated as an <code>end</code> token. This <code>end</code> token is in no way associated with the opened <code>if .. then</code> statement&#39;s body block (resp. <code>do .. while</code>) and essentially gives any end-of-lines <em>potentially</em> the meaning of an <code>end</code> token.</p>
+<p>This gives rise to a bunch of cursed valid syntaxes (try to guess the scopes):</p>
+<table>
+<tr><th>PICO-8 Syntax</th><th>Result of Preprocess</th></tr>
+<tr>
+<td>
+
+<pre><code class="language-lua">if (cdt) do
+end</code></pre>
+</td>
+<td>
+
+<pre><code class="language-lua">if cdt then do end
+end</code></pre>
+</td>
+</tr>
+<tr>
+<td>
+
+<pre><code class="language-lua">if (cdt) end do</code></pre>
+</td>
+<td>
+
+<pre><code class="language-lua">if cdt then end do end</code></pre>
+</td>
+</tr>
+<tr>
+<td>
+
+<pre><code class="language-lua">if (cdt) end function fun()</code></pre>
+</td>
+<td>
+
+<pre><code class="language-lua">if cdt then end function fun() end</code></pre>
+</td>
+</tr>
+<tr>
+<td>
+
+<pre><code class="language-lua">-- incorrect!
+if (cdt1) end while (cdt2) instr() do
+
+-- correct!
+if (cdt1) end while (cdt2) do instr()</code></pre>
+</td>
+<td>
+
+<pre><code class="language-lua">-- indeed... weird
+if cdt1 then end while cdt2 instr() do end
+
+-- correct!
+if cdt1 then end while cdt2 do instr() end</code></pre>
+</td>
+</tr>
+</table>
+
+<blockquote>
+<p>Note for slimmer screens: outside of the first row, all are on a single line.</p>
+</blockquote>
+<h3 id="additionally">Additionally</h3>
+<p>This syntax of &quot;single line&quot; statements also comes with an arbitrary rule that the character preceding the <code>if</code> (or <code>while</code>) token must be either:</p>
+<ul>
+<li>a blank character (whitespace, tabulation, newline sequence)</li>
+<li>a numeral: <code>a = 0xfif (cdt) instr()</code> is valid (and <code>a</code> is 15)</li>
+<li>a multiline comment <strong>only</strong> if one of these 2 points is valid before it</li>
+</ul>
+<pre><code class="language-lua">-- invalid
+instr()--[[]]if (cdt) instr()
+instr()--[[]]--[[]]if (cdt) instr()
+instr() --[[]]--[[]]if (cdt) instr()
+
+-- valid
+instr() --[[]]if (cdt) instr()
+instr()--[[]] if (cdt) instr()
+a = 0xf--[[]]if (cdt) instr()</code></pre>
+<p>Finally, it is important to notice that the body of the clause cannot be empty. Or maybe just sometimes. To be more specific, a single line <code>if</code> or <code>while</code> with no instruction following (before end-of-line) is not considered valid, but a single line <code>if</code> containing an <code>else</code> clause (albeit empty) is valid.</p>
+<pre><code class="language-lua">-- invalid
+while (cdt)
+if (cdt)
+
+--valid
+while (cdt) instr()
+if (cdt) instr()
+if (cdt) else instr()
+
+-- also valid
+if (cdt) else</code></pre>
+<h2 id="print-shorthand">Print Shorthand</h2>
+<p>The special character <code>?</code> acts as a short hand for the <code>print</code> function. As such, it does expect a parameter list as its following tokens</p>
+<p>Example: <code>? &quot;text&quot;, 1, 2, 3</code> is equivalent to <code>print(&quot;text&quot;, 1, 2, 3)</code>.</p>
+<p>However the implementation of it is somewhat capricious and very new-line dependent:</p>
+<ul>
+<li>nothing can precede the <code>?</code> character except a multiline comment</li>
+<li>the rest of the line past the <code>?</code> must be a valid parameter list</li>
+<li>it does not expect the parameter list to be enclosed in parenthesis</li>
+</ul>
+<pre><code class="language-lua">-- invalid
+instr() ?&quot;text&quot;
+?&quot;text&quot; ; instr()
+?(&quot;text&quot;, 1)
+
+-- still invalid
+instr()    --[[]]    ?&quot;text&quot;
+
+-- valid
+?&quot;text&quot;
+--[[]]?&quot;text&quot;
+?(&quot;text&quot;), (1)</code></pre>
+<h2 id="p8scii-experimental">P8SCII (experimental)</h2>
+<blockquote>
+<p>Remark: this feature is only available when specifying a version above <code>&#39;PICO-8-0.2.2&#39;</code> and might be erroneous in some places.</p>
+</blockquote>
+<p>A new set of escape sequences become valid in PICO-8:</p>
+<ul>
+<li><code>\*</code></li>
+<li><code>\+</code></li>
+<li><code>\-</code></li>
+<li><code>\|</code></li>
+<li><code>\#</code></li>
+<li><code>\^</code></li>
+</ul>
+<p>The following sequence are already valid in Lua 5.2 and thus are not modified, but they get a mention as their meaning was changed (and maybe their validation pattern too):</p>
+<ul>
+<li><code>\a</code> &quot;audio&quot;</li>
+<li><code>\v</code> decorate previous character</li>
+<li><code>\f</code> set foreground colour</li>
+<li><code>\014</code> switch to font defined at 0x5600</li>
+<li><code>\015</code> switch to default font</li>
+</ul>
+<h1 id="support-for-the-pico-8-associated-file-format-p8-text">Support for the PICO-8 Associated File Format (.p8, text)</h1>
+<p>Scripts in the PICO-8 Lua flavour are usually part of .p8 files. The convoluted definition for this file format is described bellow. Only &#39;PICO-8-x.y.z&#39; <code>luaVersion</code>s are expected to be .p8 files (via the <code>strictP8FileFormat</code> feature inherited from the abstract version &#39;PICO-8&#39;). Despite that, the <code>ignoreStrictP8FileFormat</code> parser option may be used to ignore some behaviors.</p>
+<blockquote>
+<p>Uh.. note: as per the current implementation of <code>ignoreStrictP8FileFormat</code>, only the header check is ignored and the stream is assumed to start in a <code>&#39;__lua__&#39;</code> section; but further section-starting sequences <strong>are still accounted for</strong>.</p>
+</blockquote>
+<h2 id="overall-format">Overall format</h2>
+<p>A typical .p8 file starts with the following 2-lines header:</p>
+<pre><code>pico-8 cartridge // http://www.pico-8.com
+version VER</code></pre><p>Where <code>VER</code> is a numeric version (decimal integer, no leading sign or zeros).</p>
+<p>It may then consists of up to 7 sections all introduced in order by their respective sequence:</p>
+<pre><code>__lua__
+__gfx__
+__gff__
+__label__
+__map__
+__sfx__
+__music__</code></pre><p>The sequence is usually found alone on its line, with no other character (except for EOL). The associated section then starts from the following line until the next section or EOF.</p>
+<p>Of these 7 section, only the <code>&#39;__lua__&#39;</code> one consists of actual valid Lua code.</p>
+<h3 id="more-about-the-header">More About the Header</h3>
+<p>The exact definition that makes a .p8 file&#39;s header valid is looser than introduced above: as long as the string <code>&quot;pico-8 cartridge&quot;</code> (16 characters, case sensitive) is present on the first line, the rest of the file is parsed fine.</p>
+<p>But in addition to checking the first line, the very next one is entirely discarded (it typically contains the <code>version VER</code> mention). This behavior makes it so if it contains one of the 7 sequences presented above, it will not count as staring a section.</p>
+<p>Past these 2 lines, any character is discarded until a valid section starts (se bellow).</p>
+<h3 id="more-about-sections">More About Sections</h3>
+<blockquote>
+<p>As shown above, all section-starting sequences are similar in syntax to Python&#39;s dunder, <code>&#39;__xyz__&#39;</code> and <code>&#39;__abc__&#39;</code> are used here to specify any of those.</p>
+</blockquote>
+<p>When reading a .p8 file line-be-line, a new section starts when a line starts by a sequence from the list above. This lines is then silently discarded. Because only these first few characters are checked:</p>
+<ul>
+<li>any character after the <code>&#39;__xyz__&#39;</code> but <em>before</em> the EOL are effectively discarded</li>
+<li>any character before the <code>&#39;__xyz__&#39;</code> invalidates the check, no new section is started</li>
+<li>this check for a section stating <strong>is not context-aware</strong> (neither what sections is, nor what section were)</li>
+</ul>
+<p>The various sections of a .p8 files does not have to be present in the same order as listed above. Beyond that, they do no have to be present at all as much as they can be present multiple times:</p>
+<pre><code>__xyz__
+content of section xyz
+
+__abc__
+content of section abc
+
+__xyz__
+content AGAIN of section xyz</code></pre><p>When a file presents multiple sections under the same <code>&#39;__xyz__&#39;</code>, their content is essentially concatenated (line-wise). The snippet above is equivalent to this (note the newlines):</p>
+<pre><code>__xyz__
+content of section xyz
+
+content AGAIN of section xyz
+__abc__
+content of section abc
+</code></pre><blockquote>
+<p>Although the section <code>&#39;__xyz__&#39;</code> now shows an empty line, it is important to note that each section also have their own set of internal rules, to which empty lines may be removed.</p>
+</blockquote>
+<p>Coming back to parsing Lua, all this means that the following sources get effectively parsed somewhat unexpectedly:</p>
+<table>
+<tr><th>Actual File Content</th><th>Result of Preprocess</th></tr>
+<tr>
+<td>
+
+<pre><code>pico-8 cartridge
+__lua__
+a = [[
+__gfx__
+bonjour
+]]
+__lua__
+]]</code></pre></td>
+<td>
+
+<pre><code>pico-8 cartridge
+__lua__
+a = [[
+]]</code></pre></td>
+</tr>
+<tr>
+<td>
+
+<pre><code>pico-8 cartridge
+__lua__
+__lua__ = 42
+print(__lua__)</code></pre></td>
+<td>
+
+<pre><code>pico-8 cartridge
+__lua__
+print(__lua__)</code></pre></td>
+</tr>
+<tr>
+<td>
+
+<pre><code>pico-8 cartridge
+--[[ how to write
+documentation for
+__lua__ PICO-8? ]]
+print(&quot;coucou&quot;)</code></pre></td>
+<td>
+
+<pre><code>pico-8 cartridge
+__lua__
+print(&quot;coucou&quot;)</code></pre></td>
+</tr>
+<tr>
+<td>
+
+<pre><code>pico-8 cartridge
+with no section
+at all</code></pre></td>
+<td>
+
+<pre><code>pico-8 cartridge
+</code></pre></td>
+</tr>
+</table>
+
+    </div>
+    <script>
+      var _gaq = [['_setAccount', 'UA-6980403-7'], ['_trackPageview']];
+      (function(d, t) {
+        var g = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        g.src = '//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s);
+      }(this.document, 'script'));
+    </script>
+  </body>
+</html>

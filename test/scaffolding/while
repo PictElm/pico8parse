@@ -24,3 +24,19 @@ while 1 do do break end end
 // { "luaVersion": "5.2" }
 while 1 do ; end
 while 1 do break break end
+
+// { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
+// singleLineWhile
+//// only the basic tests, for more advanced see the singleLineIf
+//// as they essentially are implemented using the same algorithm
+//// (in the ./conditional)
+while (1)@n@                            -- FAIL
+while (1) local a = 1@n@
+while (1) local a = 1
+while (1) do end
+while (1) do@n@end
+while (1)@n@do@n@end
+function f()while (1) local a = 1 end   -- FAIL
+function f()while (1) local a = 1@n@end -- FAIL
+function f() while (1) local a = 1@n@end
+while (1) end@n@                        -- FAIL

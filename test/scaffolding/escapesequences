@@ -37,3 +37,52 @@ a = "\u{1f4a9"                  -- FAIL
 a = '\uaa'                      -- FAIL
 a = '\u{}'                      -- FAIL
 a = '\u{0g}'                    -- FAIL
+
+// !p8scii
+a = "\#4"                       -- FAIL
+a = "\*3a"                      -- FAIL
+
+// { "luaVersion": "PICO-8-0.2.2", "ignoreStrictP8FileFormat": true }
+// p8scii (no idea what each realy should be, took most of this from the https://iiviigames.github.io/pico8-api/)
+a = "\*                         -- FAIL
+a = "\#c\f5 blue "
+a = "\0"
+a = "\*"                        -- FAIL
+a = "\*3a"
+a = "\#"                        -- FAIL
+a = "\#4"
+a = "\-"                        -- FAIL
+a = "\-2"
+a = "\|"                        -- FAIL
+a = "\|2"
+a = "\+"                        -- FAIL
+a = "\+2"                       -- FAIL
+a = "\+22"
+a = "\^"                        -- FAIL
+a = "\^"                        -- FAIL
+a = "\^0"                       -- FAIL
+a = "\^1"
+a = "\^9"
+a = "\^c"                       -- FAIL
+a = "\^c2"
+a = "\^s"                       -- FAIL
+a = "\^s2"
+a = "\^j"                       -- FAIL
+a = "\^j2"                      -- FAIL
+a = "\^j22"
+a = "\^g"
+a = "\^h"
+a = "\^x"
+a = "\^y"
+a = "\a"
+a = "\b"
+a = "\t"
+a = "\n"
+a = "\v"
+a = "\f"
+a = "\r"
+a = "\014"
+a = "\015"
+a = "\ace-g"
+a = "\as4x5c1egc2egc3egc4"
+a = "\ncafe\vb,!"

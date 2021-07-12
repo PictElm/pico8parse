@@ -621,7 +621,7 @@
         "comments": [
           {
             "type": "Comment",
-            "value": "comment\nline two\n",
+            "value": "\ncomment\nline two\n",
             "raw": "--[[\ncomment\nline two\n]]",
             "loc": {
               "start": {
@@ -826,6 +826,286 @@
     {
       "source": "--[=[x]x",
       "result": "[1:9] unfinished long comment (starting at line 1) near '<eof>'"
+    },
+    {
+      "source": "hey() // comment",
+      "result": "[1:6] unexpected symbol '/' near '/'"
+    },
+    {
+      "source": "hey() // comment",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "CallStatement",
+            "expression": {
+              "type": "CallExpression",
+              "base": {
+                "type": "Identifier",
+                "name": "hey",
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 3
+                  }
+                },
+                "range": [
+                  0,
+                  3
+                ],
+                "isLocal": false
+              },
+              "arguments": [],
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 0
+                },
+                "end": {
+                  "line": 1,
+                  "column": 5
+                }
+              },
+              "range": [
+                0,
+                5
+              ]
+            },
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 5
+              }
+            },
+            "range": [
+              0,
+              5
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 5
+          }
+        },
+        "range": [
+          0,
+          5
+        ],
+        "comments": [
+          {
+            "type": "Comment",
+            "value": " comment",
+            "raw": "// comment",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 6
+              },
+              "end": {
+                "line": 1,
+                "column": 16
+              }
+            },
+            "range": [
+              6,
+              16
+            ]
+          }
+        ],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "hey",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 3
+              }
+            },
+            "range": [
+              0,
+              3
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "hey() / / comment",
+      "result": "[1:6] unexpected symbol '/' near '/'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "hey() //[[comment\n]]",
+      "result": "[2:0] unexpected symbol ']' near ']'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "hey() //--[[comment\n]]",
+      "result": "[2:0] unexpected symbol ']' near ']'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "--[=[x]x",
+      "result": {
+        "type": "Chunk",
+        "body": [],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 8
+          },
+          "end": {
+            "line": 1,
+            "column": 8
+          }
+        },
+        "range": [
+          8,
+          8
+        ],
+        "comments": [
+          {
+            "type": "Comment",
+            "value": "[=[x]x",
+            "raw": "--[=[x]x",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 8
+              }
+            },
+            "range": [
+              0,
+              8
+            ]
+          }
+        ],
+        "globals": []
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "--[=[comment]=] still not code here",
+      "result": {
+        "type": "Chunk",
+        "body": [],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 35
+          }
+        },
+        "range": [
+          35,
+          35
+        ],
+        "comments": [
+          {
+            "type": "Comment",
+            "value": "[=[comment]=] still not code here",
+            "raw": "--[=[comment]=] still not code here",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 35
+              }
+            },
+            "range": [
+              0,
+              35
+            ]
+          }
+        ],
+        "globals": []
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "--[[comment]] now is code here",
+      "result": "[1:18] '=' expected near 'is'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
     }
   ];
 }));

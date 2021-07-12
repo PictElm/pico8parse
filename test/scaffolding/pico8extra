@@ -1,0 +1,25 @@
+// !singleLinePrint
+?a,1,2                                  -- FAIL
+
+// { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
+// singleLinePrint
+?@n@
+?"coucou"@n@
+? "coucou"@n@
+?a@n@
+?a
+?@n@a                                   -- FAIL
+a()@n@?a@n@
+a() ?a                                  -- FAIL
+?a a()                                  -- FAIL
+?a,@n@b                                 -- FAIL
+?(a)@n@
+?a,c@n@
+?a,x,y,c@n@
+?(a,c)@n@                               -- FAIL
+?(a),(c)@n@
+a = 1 ?a                                -- FAIL
+a = 2; ?a                               -- FAIL
+(?a)@n@                                 -- FAIL
+(?a@n@)                                 -- FAIL
+@n@?a@n@

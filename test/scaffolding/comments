@@ -12,3 +12,17 @@ if true--[[comment]]then end
 --[==@n@return --]]
 if true -- comment@n@then end
 --[=[x]x                                  -- FAIL
+
+// !traditionalComments
+hey() // comment                          -- FAIL
+
+// { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
+// traditionalComments
+hey() // comment
+hey() / / comment                         -- FAIL
+hey() //[[comment@n@]]                    -- FAIL
+hey() //--[[comment@n@]]                  -- FAIL
+// noDeepLongStringComments
+--[=[x]x
+--[=[comment]=] still not code here
+--[[comment]] now is code here            -- FAIL

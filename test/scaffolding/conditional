@@ -28,3 +28,52 @@ if 1 then return return end             -- FAIL
 if 1 then end; if 1 then end;
 if then end                             -- FAIL
 if 1 then elseif then end               -- FAIL
+
+// { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
+// singleLineIf
+if (1)@n@                               -- FAIL
+if (1) local a = 1@n@
+if (1) local a = 1
+if (1) else@n@
+if (1) local a = 1 else@n@
+if (1) else local b = 1@n@
+if (1) local a = 1 else local b = 1@n@
+if (1) do@n@                            -- FAIL
+if (1) end do@n@do end
+if (1) do end@n@
+if (1) do@n@end
+if (1) else do@n@                       -- FAIL
+if (1) else do local b = 1@n@           -- FAIL
+if (1) else do local b = 1@n@end
+if (1) and 2 local a = 3@n@             -- FAIL
+if (1) and (2) local a = 3@n@           -- FAIL
+if (1) local a = 1 elseif 2 then local a = 2@n@   -- FAIL
+if (1) local a = 1 end function b()@n@
+if (1) local a = 1 end while 1 do@n@
+if (1) local a = 1 end while 1 do end do@n@
+for a=1,2 do if (1) local a = 1@n@end
+//// needed blank character shenanigans
+function f()if (1) local a = 1 end      -- FAIL
+function f()if (1) local a = 1@n@end    -- FAIL
+function f() if (1) local a = 1@n@end
+a = 0xFFif (a) print(a)
+a = "42"if (a) print(a)                 -- FAIL
+a = "42" if (a) print(a)
+a = 0xFF;if (a) print(a)                -- FAIL
+a = 0xFF; if (a) print(a)
+a = 0xFF.if (a) print(a)
+a = 10--[[..]]if (a) print(a)
+a = ""--[[..]]if (a) print(a)           -- FAIL
+a = "" --[[..]]if (a) print(a)          -- FAIL
+a = "" --[[..]]--[[..]]if (a) print(a)  -- FAIL
+a = ""--[[..]] if (a) print(a)
+//// bonus challenge!
+//if (1) end local a = 1 do@n@
+//if (1) else end do@n@
+//if (1) end while (nil) do@n@
+//if (1) end while (nil) local a = 1 do@n@    -- FAIL
+//if (1) end while (nil) do local a = 1@n@
+//// scopes must be right!
+//if (1) do local a = 1@n@end
+//if (1) local a = 0 do local b = 0@n@end
+//if (1) local a = 0 do local b = 0 end
