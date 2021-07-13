@@ -473,12 +473,11 @@
       };
     }
 
-    , tableCallExpression: function(base, args) {
+    , tableCallExpression: function(base, argument) {
       return {
           type: 'TableCallExpression'
         , base: base
-        , 'arguments': args
-        , argument: args
+        , argument: argument
       };
     }
 
@@ -3296,7 +3295,7 @@
   //
   // Example:
   //
-  //     var parser = require('luaparser');
+  //     var parser = require('luaparse');
   //     parser.parse('i = 0');
 
   exports.parse = parse;
@@ -3603,5 +3602,6 @@
     return chunk;
   }
 
+  exports['default'] = exports;
 }));
 /* vim: set sw=2 ts=2 et tw=79 : */

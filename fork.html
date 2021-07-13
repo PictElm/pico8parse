@@ -32,6 +32,7 @@
             </div>
             <ul class="nav nav-pills">
               <li><a href="index.html">Home</a></li>
+              <li><a href="upstream.html">About upstream</a></li>
               <li><a href="fork.html">About this fork</a></li>
               <li><a href="coverage.html">Coverage</a></li>
               <li><a href="examples.html">Examples</a></li>
@@ -41,23 +42,6 @@
       </div>
     </div>
     <div class="container">
-<p>This is a fork of the <a href="fstirlitz.github.io/luaparse">luaparse</a> by Oskar Schöldström (and other).</p>
-<p>See <a href="README-luaparse.md">the original README</a> or the linked GitHub above for more information about it. If the intention is to use the present JavaScript package, the original README is probably the first thing to look at.</p>
-<p>The intention is to add support for the PICO-8 flavour of Lua which brings a few new syntaxes, tokens and a whole file format (all described after).</p>
-<h2 id="a-fork-of-the-luaparse">A Fork of the luaparse</h2>
-<p>A few changes were made regarding the versions of Lua that were already supported by the original luaparse:</p>
-<ul>
-<li>from Lua 5.2 onward, hex numerals may start with a dot: <code>a = 0x.A</code> is valid</li>
-<li>the parser state would not be entirely reset (which had no impact until it did)</li>
-<li>maybe that&#39;s wrong but longstring comments were discarding any first newline right after the last <code>[</code></li>
-<li>a, hum, &quot;replacement&quot; to <code>make</code> was... attempted (as the <code>make.ps1</code>)</li>
-<li>(as a side note: version feature &quot;inheritance&quot;)</li>
-</ul>
-<p>Ideally, no breaking changes were added in regard to the parsing of Lua 5.1, 5.2, 5.3 and LuaJIT. These versions should still behave the same outside of the mentioned points above. Hopefully, this fork would stay up-to-date with its upstream.</p>
-<h2 id="other-mentions-and-thanks">Other Mentions and Thanks</h2>
-<p>The <a href="https://pico-8.fandom.com/wiki/Pico-8_Wikia">PICO-8 Wikia</a> proved a great help at gathering random information about the API.</p>
-<p>As well as the <a href="https://github.com/mpeterv/luacheck">luacheck</a> project and the <a href="https://github.com/dansanderson/picotool">picotool</a>.</p>
-<p>And obviously zep &commat;lexaloffle and their <a href="https://www.lexaloffle.com/pico-8.php">PICO-8</a> fantasy console.</p>
 <h1 id="support-for-the-pico-8-flavour-of-lua">Support for the PICO-8 Flavour of Lua</h1>
 <p>The PICO-8 Lua is based of the 5.2 version of the Lua language, a such most 5.2 syntaxes and behavior are present in PICO-8 Lua.</p>
 <p>The values added for the parser <code>luaVersion</code> option are:</p>
@@ -70,6 +54,13 @@
 <p>Disclaimer: the first implemented version is from PICO-8 0.2.1. Furthermore, this was mainly developed and tested with 0.2.1 as of yet.</p>
 </blockquote>
 <h2 id="miscellaneous">Miscellaneous</h2>
+<h3 id="not-covered">Not Covered</h3>
+<p>These changes (specific to PICO-8&#39;s Lua) have been considered out of scope:</p>
+<ul>
+<li>no <code>return</code> statement in global scope, likely due to the fact that &quot;global&quot; scope does not seem to end on EOF</li>
+<li>the last statement of a file may be an unfinished <code>variables</code> parts of an <code>AssignmentStatement</code> node, for example <code>local a,</code></li>
+</ul>
+<h3 id="comments">Comments</h3>
 <p>PICO-8 Lua reads <code>//</code> as a single line comment (similarly to C-inspired languages). Do note that this is not a simple alias for <code>--</code> as it will not start a longstring comment:</p>
 <pre><code class="language-js">// comment
 
