@@ -986,7 +986,7 @@
 
       case 126: // ~
         if (61 === next) return scanPunctuator('~=');
-        if (!features.bitwiseOperators || features.smileyBitwiseXor)
+        if (!features.bitwiseOperators)
           break;
         return scanPunctuator('~');
 
@@ -3055,7 +3055,7 @@
         case 42: case 47: case 37: return 10; // * / %
         case 43: case 45: return 9; // + -
         case 38: return 6; // &
-        case 126: return 5; // ~
+        case 126: return features.smileyBitwiseXor ? 0 : 5; // ~
         case 124: return 4; // |
         case 60: case 62: return 3; // < >
       }

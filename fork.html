@@ -54,11 +54,16 @@
 <p>Disclaimer: the first implemented version is from PICO-8 0.2.1. Furthermore, this was mainly developed and tested with 0.2.1 as of yet.</p>
 </blockquote>
 <h2 id="miscellaneous">Miscellaneous</h2>
-<h3 id="not-covered">Not Covered</h3>
+<h3 id="not-covered--inaccuracies">Not Covered / Inaccuracies</h3>
 <p>These changes (specific to PICO-8&#39;s Lua) have been considered out of scope:</p>
 <ul>
 <li>no <code>return</code> statement in global scope, likely due to the fact that &quot;global&quot; scope does not seem to end on EOF</li>
 <li>the last statement of a file may be an unfinished <code>variables</code> parts of an <code>AssignmentStatement</code> node, for example <code>local a,</code></li>
+</ul>
+<p>Differences with the official interpreter for PICO-8 version 0.2.1:</p>
+<ul>
+<li>&quot;preprocessor can not handle form <code>::_::a+=1</code>&quot; (gives a funny <code>syntax error expected near &#39;+&#39;</code>)</li>
+<li>&quot;preprocessor: self assignment with quoted function calls on RHS <code>a+=1+cos&quot;0&quot;</code>&quot; (<code>runtme error attempt to perform arithmetic on global &#39;cos&#39; [...]</code>)</li>
 </ul>
 <h3 id="comments">Comments</h3>
 <p>PICO-8 Lua reads <code>//</code> as a single line comment (similarly to C-inspired languages). Do note that this is not a simple alias for <code>--</code> as it will not start a longstring comment:</p>

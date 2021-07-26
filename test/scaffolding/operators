@@ -80,7 +80,9 @@ a >><= b
 a <<<= b                                -- FAIL
 a <= b                                  -- FAIL
 a >= b                                  -- FAIL
+a ~= b                                  -- FAIL
 // traditionalNotEqual
+a = c ~= b
 a = 1 != 2
 a = 1 !=                                -- FAIL
 a = != 2                                -- FAIL
@@ -109,6 +111,8 @@ a = 1\n
 a = \n                                  -- FAIL
 // smileyBitwiseXor
 a = 1 ~ 2                               -- FAIL
+a = ~ 1
+a = ~ 1 ~ 2                             -- FAIL
 a = 1 ^^ 1
 a = 1 ^^                                -- FAIL
 a = ^^ 2                                -- FAIL
