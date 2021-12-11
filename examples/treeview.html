@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Luaparse</title>
+  <title>pico8parse</title>
   <link rel="stylesheet" href="//yui.yahooapis.com/combo?2.9.0/build/treeview/assets/skins/sam/treeview.css">
   <style>
     body {
@@ -40,11 +40,11 @@ end
   <div id="tree"></div>
 </div>
 
-<script src="../luaparse.js"></script>
+<script src="../pico8parse.js"></script>
 <script src="//yui.yahooapis.com/combo?2.9.0/build/yahoo-dom-event/yahoo-dom-event.js&2.9.0/build/treeview/treeview-min.js"></script>
 <script src="//d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"></script>
 <script>
-  (function(window, document, ace, YAHOO, luaparse) {
+  (function(window, document, ace, YAHOO, pico8parse) {
     var editor = ace.edit('editor');
     editor.setTheme('ace/theme/solarized_light');
     editor.getSession().setMode('ace/mode/javascript');
@@ -101,7 +101,7 @@ end
         var ast = {};
         try {
           var code = editor.getValue();
-          ast = luaparse.parse(code);
+          ast = pico8parse.parse(code);
           updateTree(ast);
         } catch(e) {
           updateTree({ 'error' : e.name, 'message': e.message });
@@ -110,7 +110,7 @@ end
       }, 500);
     }
     window.onload = parse;
-  }(this, this.document, this.ace, this.YAHOO, this.luaparse));
+  }(this, this.document, this.ace, this.YAHOO, this.pico8parse));
 </script>
 </body>
 </html>

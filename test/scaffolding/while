@@ -31,6 +31,7 @@ while 1 do break break end
 //// as they essentially are implemented using the same algorithm
 //// (in the ./conditional)
 while (1)@n@                            -- FAIL
+while (1);@n@                           -- FAIL
 while (1) local a = 1@n@
 while (1) local a = 1
 while (1) do end
@@ -40,3 +41,32 @@ function f()while (1) local a = 1 end   -- FAIL
 function f()while (1) local a = 1@n@end -- FAIL
 function f() while (1) local a = 1@n@end
 while (1) end@n@                        -- FAIL
+//// needed blank character shenanigans
+a = 0xFFwhile (a) print(a)
+a = "42"while (a) print(a)              -- FAIL
+a = "42" while (a) print(a)
+a = 0xFF;while (a) print(a)             -- FAIL
+a = 0xFF; while (a) print(a)
+a = 0xFF.while (a) print(a)
+a = 10--[[..]]while (a) print(a)
+a = ""--[[..]]while (a) print(a)        -- FAIL
+a = "" --[[..]]while (a) print(a)       -- FAIL
+a = "" --[[..]]--[[..]]while (a) print(a) -- FAIL
+a = ""--[[..]] while (a) print(a)
+//// bonus challenge!
+//while (1) while (2) do end            -- FAIL
+//while (1) if (2) then end
+
+// { "luaVersion": "PICO-8-0.2.3", "ignoreStrictP8FileFormat": true }
+// allowEmptySingleLineWhile
+while (1)@n@                            -- FAIL
+while (1);@n@
+while (1);@n@local a = 1
+
+// { "luaVersion": "PICO-8-0.2.4", "ignoreStrictP8FileFormat": true }
+// allowAnyBeforeSingleLineWhile
+a = "42"while (a) print(a)
+a = 0xFF;while (a) print(a)
+a = ""--[[..]]while (a) print(a)
+a = "" --[[..]]while (a) print(a)
+a = "" --[[..]]--[[..]]while (a) print(a)

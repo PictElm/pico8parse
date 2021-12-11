@@ -21,7 +21,7 @@ param (
 
 $DIR = $PSScriptRoot
 $REMOTE = "$DIR\.." # Clone local copy to get access to HEAD
-$DEST = "$DIR\bench-luaparse"
+$DEST = "$DIR\bench-pico8parse"
 $GIT_FLAGS = "--git-dir=$DEST\.git --work-tree=$DEST\"
 
 # Variables
@@ -32,7 +32,7 @@ $name = $MyInvocation.InvocationName
 function Write-Usage() {
     Write-Host "$name [COMMIT]...
 
-Benchmark luaparse at the the specified commit stages.
+Benchmark pico8parse at the the specified commit stages.
 While running the profiling tool you have to make sure your specified
 tick-processor matches the V8-version used in the running node-version.
 
@@ -43,7 +43,7 @@ Examples:
 
 Options:
   -Js            Benchmark js scripts
-  -Prof          Profile luaparse.js with d8
+  -Prof          Profile pico8parse.js with d8
   -MinTime       Specify the min time. Defaults to 10 (node specific)
   -Samples       Specify the samples. Defaults to 10
   -Processor     Specify the path to the tick-processor. Defaults to
@@ -72,12 +72,12 @@ function Invoke-Git($com, $arg) {
 
 function Run-NodeBenchmark($file, $commit) {
   Write-Host "Commit ${commit}:"
-  node $REMOTE\scripts\benchmark -v --luaparse="$file" --samples="$Samples" --minTime="$MinTime" 'benchmarks/lib/ParseLua.lua'
+  node $REMOTE\scripts\benchmark -v --pico8parse="$file" --samples="$Samples" --minTime="$MinTime" 'benchmarks/lib/ParseLua.lua'
   Write-Host ''
 }
 
 
-# Profile luaparse together with D8.
+# Profile pico8parse together with D8.
 function Profile-Commit($commit) {
     $local:output = ".\logs\$commit"
     $local:benchmark = '.\scripts\benchmark .\benchmarks\lib\ParseLua.lua'

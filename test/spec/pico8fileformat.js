@@ -143,7 +143,7 @@
     },
     {
       "source": "pico-8 cartridg\n\ncontent",
-      "result": "[1:0] 'pico-8 cartridge' expected near '<bof>'",
+      "result": "[1:0] missing header 'pico-8 cartridge'",
       "options": {
         "comments": true,
         "locations": true,
@@ -154,7 +154,7 @@
     },
     {
       "source": "pico 8 cartridge\n\ncontent",
-      "result": "[1:0] 'pico-8 cartridge' expected near '<bof>'",
+      "result": "[1:0] missing header 'pico-8 cartridge'",
       "options": {
         "comments": true,
         "locations": true,

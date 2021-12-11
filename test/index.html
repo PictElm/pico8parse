@@ -31,24 +31,24 @@
         require({
           // Thwart aggressive resource caching.
           'urlArgs': 'async=' + (+new Date())
-        }, ['../luaparse'], function (luaparse) {
-          // Remember whether luaparse exposed a global.
-          var notExposed = typeof root.luaparse === 'undefined';
+        }, ['../pico8parse'], function (pico8parse) {
+          // Remember whether pico8parse exposed a global.
+          var notExposed = typeof root.pico8parse === 'undefined';
           // The runner relies on the global.
-          root.luaparse = luaparse;
+          root.pico8parse = pico8parse;
 
           require(['runner'], function(runner) {
             runner.addTest('Asynchronous Module Definition', function (test) {
               setTimeout(function () {
-                test.equal(typeof luaparse.parse, 'function', 'Luaparse should be exported as an asynchronous module').done(2);
+                test.equal(typeof pico8parse.parse, 'function', 'pico8parse should be exported as an asynchronous module').done(2);
               }, 1500);
-              test.ok(notExposed, 'Luaparse should not expose itself as a global when loaded as a module');
+              test.ok(notExposed, 'pico8parse should not expose itself as a global when loaded as a module');
             });
             runner.run();
           });
         });
       } else {
-        root.document.write('<script src="../luaparse.js"><\/script>');
+        root.document.write('<script src="../pico8parse.js"><\/script>');
         root.document.write('<script src="runner.js"><\/script>');
       }
     }(this));

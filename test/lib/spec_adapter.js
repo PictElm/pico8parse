@@ -2,7 +2,7 @@
 
   function specAdapter(socket) {
     var testResults = [], id = 0;
-    root.luaparse.testSuite.on('all', function(event) {
+    root.pico8parse.testSuite.on('all', function(event) {
       var test;
       switch (event.type) {
         case 'assertion':

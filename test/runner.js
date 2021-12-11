@@ -58,7 +58,7 @@
 
   var Spec = load('Spec', './lib/spec')
     , Newton = load('Newton', './lib/newton')
-    , luaparse = load('luaparse', '../luaparse')
+    , pico8parse = load('pico8parse', '../pico8parse')
     , specs = root.specs = [
         './spec/assignments'
       , './spec/break'
@@ -92,7 +92,7 @@
       else return function(value) { };
     }())
     // Create the test suite.
-    , suite = new Spec.Suite('Luaparse Unit Tests');
+    , suite = new Spec.Suite('pico8parse Unit Tests');
 
   if (!('assign' in Object)) {
     Object.assign = function () {
@@ -122,9 +122,9 @@
   Spec.Test.prototype.parseError = function (source, expected, options) {
     var ok = false, actual;
     try {
-      actual = luaparse.parse(source, options);
+      actual = pico8parse.parse(source, options);
     } catch (exception) {
-      if (!(exception instanceof luaparse.SyntaxError))
+      if (!(exception instanceof pico8parse.SyntaxError))
         throw exception;
       actual = exception.message;
       ok = actual === expected;
@@ -138,7 +138,7 @@
 
   // Expect the parsed AST to match.
   Spec.Test.prototype.parses = function (source, expected, options, variant) {
-    return this.deepEqual(luaparse.parse(source, options), expected, escapeString(source) +
+    return this.deepEqual(pico8parse.parse(source, options), expected, escapeString(source) +
       (variant ? (' ' + variant) : ''));
   };
 
@@ -154,8 +154,8 @@
     }
 
     return this.deepEqual(
-      normalise(luaparse.parse('a = ' + source, options)),
-      normalise(luaparse.parse('a = ' + expected, options)),
+      normalise(pico8parse.parse('a = ' + source, options)),
+      normalise(pico8parse.parse('a = ' + expected, options)),
       source + ' is equal to ' + expected
     );
   };
@@ -429,11 +429,11 @@
   // Additional tests ---------------------------------------------------------
 
   suite.addTest('API', function() {
-    this.equal(typeof luaparse, 'object', 'luaparse is an object');
-    this.equal(typeof luaparse.parse, 'function', 'luaparse.parse() is a function');
-    this.equal(typeof luaparse.write, 'function', 'luaparse.write() is a function');
-    this.equal(typeof luaparse.end, 'function', 'luaparse.end() is a function');
-    var parse = luaparse.parse({ wait: true });
+    this.equal(typeof pico8parse, 'object', 'pico8parse is an object');
+    this.equal(typeof pico8parse.parse, 'function', 'pico8parse.parse() is a function');
+    this.equal(typeof pico8parse.write, 'function', 'pico8parse.write() is a function');
+    this.equal(typeof pico8parse.end, 'function', 'pico8parse.end() is a function');
+    var parse = pico8parse.parse({ wait: true });
     this.deepEqual(parse.end('return'), {
       "type": "Chunk",
       "body": [
@@ -450,7 +450,7 @@
       , destroyedScopes = 0
       , localDeclarations = [];
 
-    parse = luaparse.parse('do local a = 1 b = 1 end -- comment', {
+    parse = pico8parse.parse('do local a = 1 b = 1 end -- comment', {
         scope: true
       , locations: true
       , ranges: true
@@ -469,11 +469,11 @@
       , 'should invoke onCreateNode callback with syntax node parameter'
     );
 
-    this.deepEqual(luaparse.parse('#!/usr/bin/lua\nreturn', { locations: true, ranges: true }), {
+    this.deepEqual(pico8parse.parse('#!/usr/bin/lua\nreturn', { locations: true, ranges: true }), {
       "type": "Chunk", "body": [{"type": "ReturnStatement", "arguments": [], "loc": {"start": {"line": 2, "column": 0}, "end": {"line": 2, "column": 6}}, "range": [15, 21]}], "loc": {"start": {"line": 2, "column": 0}, "end": {"line": 2, "column": 6}}, "range": [15, 21], "comments": []
     }, 'should ignore shebangs');
 
-    this.deepEqual(luaparse.parse('pico-8 cartridge // http://www.pico-8.com\nversion VER\n__lua__\nprint()', { luaVersion: 'PICO-8', locations: true, ranges: true }), {
+    this.deepEqual(pico8parse.parse('pico-8 cartridge // http://www.pico-8.com\nversion VER\n__lua__\nprint()', { luaVersion: 'PICO-8', locations: true, ranges: true }), {
       "type": "Chunk", "body": [{"type": "CallStatement", "expression": {"type": "CallExpression", "base": {"type": "Identifier", "name": "print", "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 5}}, "range": [62, 67]}, "arguments": [], "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69]}, "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69]}], "loc": {"start": {"line": 4, "column": 0}, "end": {"line": 4, "column": 7}}, "range": [62, 69], "comments": []
     }, 'should ignore p8 headers');
 
@@ -498,7 +498,7 @@
     /*jshint loopfunc:true */
     for (var i = 0; i < optionErrors.length; ++i) {
       this.error(function () {
-        return luaparse.parse('', optionErrors[i].options);
+        return pico8parse.parse('', optionErrors[i].options);
       }, optionErrors[i].message);
     }
 
@@ -551,11 +551,11 @@
       count += testcases[i].length - 1;
 
       var list = testcases[i];
-      var left = luaparse.parse('return ' + list[0],
+      var left = pico8parse.parse('return ' + list[0],
                                 { "luaVersion": "5.3" }).body[0].arguments[0];
 
       for (var j = 1; j < list.length; ++j) {
-        var right = luaparse.parse('return ' + list[j],
+        var right = pico8parse.parse('return ' + list[j],
                                    { "luaVersion": "5.3" }).body[0].arguments[0];
 
         this.equal(left.value, right.value, symbolicControlChars(left.raw) + ' == ' + symbolicControlChars(right.raw));
@@ -590,11 +590,11 @@
 
   suite.addTest('EOL sequences', function() {
     var options = { locations: true }
-      , baseline = luaparse.parse('foo = 1\nbar = 1', options);
+      , baseline = pico8parse.parse('foo = 1\nbar = 1', options);
 
-    this.deepEqual(baseline, luaparse.parse('foo = 1\rbar = 1', options), 'carriage return');
-    this.deepEqual(baseline, luaparse.parse('foo = 1\n\rbar = 1', options), 'newline followed by carriage return');
-    this.deepEqual(baseline, luaparse.parse('foo = 1\r\nbar = 1', options), 'carriage return followed by newline');
+    this.deepEqual(baseline, pico8parse.parse('foo = 1\rbar = 1', options), 'carriage return');
+    this.deepEqual(baseline, pico8parse.parse('foo = 1\n\rbar = 1', options), 'newline followed by carriage return');
+    this.deepEqual(baseline, pico8parse.parse('foo = 1\r\nbar = 1', options), 'carriage return followed by newline');
     this.done(3);
   });
 
@@ -657,16 +657,16 @@
       if (cases[i].error) {
         var ok = false;
         try {
-          luaparse.parse("return " + cases[i].src, opts);
+          pico8parse.parse("return " + cases[i].src, opts);
         } catch (e) {
-          if (!(e instanceof luaparse.SyntaxError))
+          if (!(e instanceof pico8parse.SyntaxError))
             throw e;
           ok = true;
         }
         this.ok(ok, { 'message': label });
         continue;
       }
-      var node = luaparse.parse("return " + cases[i].src, opts).body[0].arguments[0];
+      var node = pico8parse.parse("return " + cases[i].src, opts).body[0].arguments[0];
       if (cases[i].name)
         this.deepEqual(node.name, cases[i].name, label);
       else

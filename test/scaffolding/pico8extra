@@ -1,4 +1,5 @@
 // !singleLinePrint
+?a                                      -- FAIL
 ?a,1,2                                  -- FAIL
 
 // { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
@@ -23,3 +24,17 @@ a = 2; ?a                               -- FAIL
 (?a)@n@                                 -- FAIL
 (?a@n@)                                 -- FAIL
 @n@?a@n@
+//// seriously?! :'
+a.@n@?
+
+// { "luaVersion": "PICO-8-0.2.3", "ignoreStrictP8FileFormat": true }
+// singleLinePrintNoLineDependency
+a() ?a
+if (true) ?"yes"
+?a a()                                  -- FAIL
+??a                                     -- FAIL
+//// seriously?!
+??a)
+???a))                 -- " print( print( print( a)))"
+?-?a)                  -- " print(- print(a))"
+??a+?a))               -- " print( print(a+ print(a)))"

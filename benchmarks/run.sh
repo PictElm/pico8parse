@@ -1,6 +1,6 @@
 DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 REMOTE="$DIR/.." # Clone local copy to get access to HEAD
-DEST="$DIR/bench-luaparse"
+DEST="$DIR/bench-pico8parse"
 GIT_FLAGS="--git-dir=$DEST/.git --work-tree=$DEST/"
 
 # Variables
@@ -16,7 +16,7 @@ verbose=0
 usage() {
   echo -n "$0 [COMMIT]...
 
-Benchmark luaparse at the the specified commit stages.
+Benchmark pico8parse at the the specified commit stages.
 While running the profiling tool you have to make sure your specified
 tick-processor matches the V8-version used in the running node-version.
 
@@ -27,7 +27,7 @@ Examples:
 
 Options:
   --js                Benchmark js scripts
-  --profile           Profile luaparse.js with d8
+  --profile           Profile pico8parse.js with d8
   -m, --minTime       Specify the min time. Defaults to 10 (node specific)
   -s, --samples       Specify the samples. Defaults to 10
   -p, --processor     Specify the path to the tick-processor. Defaults to
@@ -60,12 +60,12 @@ runNodeBenchmark() {
   local commit=$2
   echo "Commit $commit:"
   $REMOTE/scripts/benchmark -v \
-    --luaparse="$file" --samples="$samples" --minTime="$minTime" \
+    --pico8parse="$file" --samples="$samples" --minTime="$minTime" \
     "benchmarks/lib/ParseLua.lua"
   echo
 }
 
-# Profile luaparse together with D8.
+# Profile pico8parse together with D8.
 profileCommit() {
   local commit=$1
   local output="logs/$commit"

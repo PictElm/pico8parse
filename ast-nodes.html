@@ -89,8 +89,182 @@
       </div>
     </div>
     <div class="container">
-<p>Coverage is reported using <a href="https://github.com/istanbuljs/nyc">nyc</a>.</p>
-<iframe src="coverage/pico8parse.js.html" style="width: 100%; height: 600px"></iframe>
+<p>Every AST node extends the following base:</p>
+<pre><code class="language-ts">type Base = {
+    type: string;
+    loc?: {
+        start: {
+            line: number;
+            column: number;
+        };
+        end: {
+            line: number;
+            column: number;
+        };
+    };
+    range?: [number, number];
+};</code></pre>
+<p>The existing types are then:</p>
+<table>
+<thead>
+<tr>
+<th>type</th>
+<th>details</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;LabelStatement&quot;</td>
+<td><code>{ label: Identifier; }</code></td>
+</tr>
+<tr>
+<td>&quot;BreakStatement&quot;</td>
+<td><code>{ }</code></td>
+</tr>
+<tr>
+<td>&quot;GotoStatement&quot;</td>
+<td><code>{ label: Identifier; }</code></td>
+</tr>
+<tr>
+<td>&quot;ReturnStatement&quot;</td>
+<td><code>{ arguments: Expression[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;IfStatement&quot;</td>
+<td><code>{ clauses: IfStatementClauses; }</code></td>
+</tr>
+<tr>
+<td>&quot;IfClause&quot;</td>
+<td><code>{ condition: Expression; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;ElseifClause&quot;</td>
+<td><code>{ condition: Expression; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;ElseClause&quot;</td>
+<td><code>{ body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;WhileStatement&quot;</td>
+<td><code>{ condition: Expression; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;DoStatement&quot;</td>
+<td><code>{ body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;RepeatStatement&quot;</td>
+<td><code>{ condition: Expression; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;LocalStatement&quot;</td>
+<td><code>{ variables: Identifier[]; init: Expression[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;AssignmentStatement&quot;</td>
+<td><code>{ variables: Array&lt;IndexExpression | MemberExpression | Identifier&gt;; init: Expression[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;AssignmentOperatorStatement&quot;</td>
+<td><code>{ operator: BinaryOperator; variables: Array&lt;IndexExpression | MemberExpression | Identifier&gt;; init: Expression[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;CallStatement&quot;</td>
+<td><code>{ expression: CallExpression | StringCallExpression | TableCallExpression; }</code></td>
+</tr>
+<tr>
+<td>&quot;FunctionDeclaration&quot;</td>
+<td><code>{ identifier: Identifier | MemberExpression | null; isLocal: boolean; parameters: Array&lt;Identifier | VarargLiteral&gt;; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;ForNumericStatement&quot;</td>
+<td><code>{ variable: Identifier; start: Expression; end: Expression; step: Expression | null; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;ForGenericStatement&quot;</td>
+<td><code>{ variables: Identifier[]; iterators: Expression[]; body: Statement[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;Chunk&quot;</td>
+<td><code>{ body: Statement[]; comments?: Comment[]; globals?: Identifier[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;Identifier&quot;</td>
+<td><code>{ name: string; isLocal?: boolean; }</code></td>
+</tr>
+<tr>
+<td>&quot;StringLiteral&quot;</td>
+<td><code>{ value: string; raw: string; rawInterrupted?: string; }</code></td>
+</tr>
+<tr>
+<td>&quot;NumericLiteral&quot;</td>
+<td><code>{ value: number; raw: string; }</code></td>
+</tr>
+<tr>
+<td>&quot;BooleanLiteral&quot;</td>
+<td><code>{ value: boolean; raw: string; }</code></td>
+</tr>
+<tr>
+<td>&quot;NilLiteral&quot;</td>
+<td><code>{ value: null; raw: string; }</code></td>
+</tr>
+<tr>
+<td>&quot;VarargLiteral&quot;</td>
+<td><code>{ value: string; raw: string; }</code></td>
+</tr>
+<tr>
+<td>&quot;TableKey&quot;</td>
+<td><code>{ key: Expression; value: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;TableKeyString&quot;</td>
+<td><code>{ key: Identifier; value: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;TableValue&quot;</td>
+<td><code>{ value: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;TableConstructorExpression&quot;</td>
+<td><code>{ fields: Array&lt;TableKey | TableKeyString | TableValue&gt;; }</code></td>
+</tr>
+<tr>
+<td>&quot;UnaryExpression&quot;</td>
+<td><code>{ operator: UnaryOperator; argument: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;BinaryExpression&quot;</td>
+<td><code>{ operator: BinaryOperator | ComparisonOperator; left: Expression; right: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;LogicalExpression&quot;</td>
+<td><code>{ operator: &#39;or&#39; | &#39;and&#39;; left: Expression; right: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;MemberExpression&quot;</td>
+<td><code>{ indexer: &#39;.&#39; | &#39;:&#39;; identifier: Identifier; base: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;IndexExpression&quot;</td>
+<td><code>{ base: Expression; index: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;CallExpression&quot;</td>
+<td><code>{ base: Expression; arguments: Expression[]; }</code></td>
+</tr>
+<tr>
+<td>&quot;TableCallExpression&quot;</td>
+<td><code>{ base: Expression; argument: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;StringCallExpression&quot;</td>
+<td><code>{ base: Expression; argument: Expression; }</code></td>
+</tr>
+<tr>
+<td>&quot;Comment&quot;</td>
+<td><code>{ value: string; raw: string; rawInterrupted?: string; }</code></td>
+</tr>
+</tbody></table>
 
     </div>
     <script>
