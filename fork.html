@@ -107,7 +107,9 @@
 __lua__
 printh[=[
 #include file_with_code_to_inspect
-]=]</code></pre></blockquote>
+]=]
+</code></pre>
+</blockquote>
 <h2 id="miscellaneous">Miscellaneous</h2>
 <h3 id="not-covered--inaccuracies">Not Covered / Inaccuracies</h3>
 <p>These changes (specific to PICO-8&#39;s Lua) have been considered out of scope:</p>
@@ -129,15 +131,19 @@ printh[=[
 //[[ comment
   not comment,
   but syntax error
-]]</code></pre>
+]]
+</code></pre>
 <p>Adding to the list of changes to comments, longstring comments cannot use the <code>=</code> as depth:</p>
 <pre><code>--[==[ comment
   not comment but syntax error
   (no MD highlight to show that)
-]==]</code></pre><p>This syntax is kept for actual strings:</p>
+]==]
+</code></pre>
+<p>This syntax is kept for actual strings:</p>
 <pre><code class="language-lua">local text = [==[hey
 how&#39;s it going?]==]
-print(text)</code></pre>
+print(text)
+</code></pre>
 <h2 id="numerals">Numerals</h2>
 <h3 id="binary-literal">Binary Literal</h3>
 <p>PICO-8 accepts binary notation for numeral the same way Lua 5.2+ does for hexadecimal:</p>
@@ -261,17 +267,20 @@ instruction2()
 
 -- is semantically the same as
 
-if condition then instruction1() end instruction2()</code></pre>
+if condition then instruction1() end instruction2()
+</code></pre>
 <pre><code class="language-lua">if (condition) instruction1() else instruction2()
 
 -- is semantically the same as
 
-if condition then instruction1() else instruction2() end</code></pre>
+if condition then instruction1() else instruction2() end
+</code></pre>
 <pre><code class="language-lua">while (condition) instruction()
 
 -- is semantically the same as
 
-while condition do instruction() end</code></pre>
+while condition do instruction() end
+</code></pre>
 <p>Notice how:</p>
 <ul>
 <li>the parenthesis enclosing the condition are necessary</li>
@@ -289,32 +298,38 @@ while condition do instruction() end</code></pre>
 <td>
 
 <pre><code class="language-lua">if (cdt) do
-end</code></pre>
+end
+</code></pre>
 </td>
 <td>
 
 <pre><code class="language-lua">if cdt then do end
-end</code></pre>
+end
+</code></pre>
 </td>
 </tr>
 <tr>
 <td>
 
-<pre><code class="language-lua">if (cdt) end do</code></pre>
+<pre><code class="language-lua">if (cdt) end do
+</code></pre>
 </td>
 <td>
 
-<pre><code class="language-lua">if cdt then end do end</code></pre>
+<pre><code class="language-lua">if cdt then end do end
+</code></pre>
 </td>
 </tr>
 <tr>
 <td>
 
-<pre><code class="language-lua">if (cdt) end function fun()</code></pre>
+<pre><code class="language-lua">if (cdt) end function fun()
+</code></pre>
 </td>
 <td>
 
-<pre><code class="language-lua">if cdt then end function fun() end</code></pre>
+<pre><code class="language-lua">if cdt then end function fun() end
+</code></pre>
 </td>
 </tr>
 <tr>
@@ -324,7 +339,8 @@ end</code></pre>
 if (cdt1) end while (cdt2) instr() do
 
 -- correct!
-if (cdt1) end while (cdt2) do instr()</code></pre>
+if (cdt1) end while (cdt2) do instr()
+</code></pre>
 </td>
 <td>
 
@@ -332,7 +348,8 @@ if (cdt1) end while (cdt2) do instr()</code></pre>
 if cdt1 then end while cdt2 instr() do end
 
 -- correct!
-if cdt1 then end while cdt2 do instr() end</code></pre>
+if cdt1 then end while cdt2 do instr() end
+</code></pre>
 </td>
 </tr>
 </table>
@@ -355,7 +372,8 @@ instr() --[[]]--[[]]if (cdt) instr()
 -- valid
 instr() --[[]]if (cdt) instr()
 instr()--[[]] if (cdt) instr()
-a = 0xf--[[]]if (cdt) instr()</code></pre>
+a = 0xf--[[]]if (cdt) instr()
+</code></pre>
 <p>This dependency on the preceding character/token was removed in version 0.2.4 (making every lines above valid, even without comments).</p>
 <p>Finally, it is important to notice that the body of the clause cannot be empty. Or maybe just sometimes. To be more specific, a single line <code>if</code> or <code>while</code> with no instruction following (before end-of-line) is not considered valid, but a single line <code>if</code> containing an <code>else</code> clause (albeit empty) is valid.</p>
 <pre><code class="language-lua">-- invalid
@@ -368,13 +386,15 @@ if (cdt) instr()
 if (cdt) else instr()
 
 -- also valid
-if (cdt) else</code></pre>
+if (cdt) else
+</code></pre>
 <p>This was changed in version 0.2.3, above which the following is made possible:</p>
 <pre><code class="language-lua">-- valid
 while (cdt) ;
 
 -- still invalid
-while (cdt)</code></pre>
+while (cdt)
+</code></pre>
 <h2 id="print-shorthand">Print Shorthand</h2>
 <p>The special character <code>?</code> acts as a short hand for the <code>print</code> function. As such, it does expect a parameter list as its following tokens</p>
 <p>Example: <code>? &quot;text&quot;, 1, 2, 3</code> is equivalent to <code>print(&quot;text&quot;, 1, 2, 3)</code>.</p>
@@ -395,20 +415,22 @@ instr()    --[[]]    ?&quot;text&quot;
 -- valid
 ?&quot;text&quot;
 --[[]]?&quot;text&quot;
-?(&quot;text&quot;), (1)</code></pre>
+?(&quot;text&quot;), (1)
+</code></pre>
 <p>Although from version 0.2.3 onward, this was changed to allow the <code>?</code> &quot;operator&quot; to appear on the same line as a single line <code>if</code>/<code>while</code>, making the following valid:</p>
 <pre><code class="language-lua">-- valid
 if (cdt) ?&quot;text&quot;
 instr() ?&quot;text&quot;
 
 -- also valid
-??&quot;text&quot;) -- what?</code></pre>
+??&quot;text&quot;) -- what?
+</code></pre>
 <p>The actual behavior of the preprocessor regarding the <code>?</code> is rather simple and explains that last line:</p>
 <ul>
-<li>a valid <code>?</code> is replaced with exactly <code>print(</code></li>
+<li>a valid <code>?</code> is replaced with exactly <code> print(</code></li>
 <li>this marks the end of the line for <em>a single parenthesis</em></li>
 </ul>
-<p>Therefor <code>?&quot;text&quot;</code> translates to <code>print(&quot;text&quot;)</code> and <code>??&quot;text&quot;</code> would only translate to <code>print( print(&quot;text&quot;)</code> (only one closing parenthesis).</p>
+<p>Therefor <code>?&quot;text&quot;</code> translates to <code> print(&quot;text&quot;)</code> and <code>??&quot;text&quot;</code> would only translate to <code> print( print(&quot;text&quot;)</code> (only one closing parenthesis).</p>
 <h2 id="p8scii">P8SCII</h2>
 <blockquote>
 <p>Remark: this feature is only available when specifying a version above <code>&#39;PICO-8-0.2.2&#39;</code> and might be erroneous in some places.</p>
@@ -438,7 +460,9 @@ instr() ?&quot;text&quot;
 <h2 id="overall-format">Overall Format</h2>
 <p>A typical .p8 file starts with the following 2-lines header:</p>
 <pre><code>pico-8 cartridge // http://www.pico-8.com
-version VER</code></pre><p>Where <code>VER</code> is a numeric version (decimal integer, no leading sign or zeros).</p>
+version VER
+</code></pre>
+<p>Where <code>VER</code> is a numeric version (decimal integer, no leading sign or zeros).</p>
 <p>It may then consists of up to 7 sections all introduced in order by their respective sequence:</p>
 <pre><code>__lua__
 __gfx__
@@ -446,7 +470,9 @@ __gff__
 __label__
 __map__
 __sfx__
-__music__</code></pre><p>The sequence is usually found alone on its line, with no other character (except for EOL). The associated section then starts from the following line until the next section or EOF.</p>
+__music__
+</code></pre>
+<p>The sequence is usually found alone on its line, with no other character (except for EOL). The associated section then starts from the following line until the next section or EOF.</p>
 <p>Of these 7 section, only the <code>&#39;__lua__&#39;</code> one consists of actual valid Lua code.</p>
 <h3 id="more-about-the-header">More About the Header</h3>
 <p>The exact definition that makes a .p8 file&#39;s header valid is looser than introduced above: as long as the string <code>&quot;pico-8 cartridge&quot;</code> (16 characters, case sensitive) is present on the first line, the rest of the file is parsed fine.</p>
@@ -470,14 +496,17 @@ __abc__
 content of section abc
 
 __xyz__
-content AGAIN of section xyz</code></pre><p>When a file presents multiple sections under the same <code>&#39;__xyz__&#39;</code>, their content is essentially concatenated (line-wise). The snippet above is equivalent to this (note the newlines):</p>
+content AGAIN of section xyz
+</code></pre>
+<p>When a file presents multiple sections under the same <code>&#39;__xyz__&#39;</code>, their content is essentially concatenated (line-wise). The snippet above is equivalent to this (note the newlines):</p>
 <pre><code>__xyz__
 content of section xyz
 
 content AGAIN of section xyz
 __abc__
 content of section abc
-</code></pre><blockquote>
+</code></pre>
+<blockquote>
 <p>Although the section <code>&#39;__xyz__&#39;</code> now shows an empty line, it is important to note that each section also have their own set of internal rules, to which empty lines may be removed.</p>
 </blockquote>
 <p>Coming back to parsing Lua, all this means that the following sources get effectively parsed somewhat unexpectedly:</p>
@@ -493,13 +522,17 @@ __gfx__
 bonjour
 ]]
 __lua__
-]]</code></pre></td>
+]]
+</code></pre>
+</td>
 <td>
 
 <pre><code>pico-8 cartridge
 __lua__
 a = [[
-]]</code></pre></td>
+]]
+</code></pre>
+</td>
 </tr>
 <tr>
 <td>
@@ -507,12 +540,16 @@ a = [[
 <pre><code>pico-8 cartridge
 __lua__
 __lua__ = 42
-print(__lua__)</code></pre></td>
+print(__lua__)
+</code></pre>
+</td>
 <td>
 
 <pre><code>pico-8 cartridge
 __lua__
-print(__lua__)</code></pre></td>
+print(__lua__)
+</code></pre>
+</td>
 </tr>
 <tr>
 <td>
@@ -521,23 +558,30 @@ print(__lua__)</code></pre></td>
 --[[ how to write
 documentation for
 __lua__ PICO-8? ]]
-print(&quot;coucou&quot;)</code></pre></td>
+print(&quot;coucou&quot;)
+</code></pre>
+</td>
 <td>
 
 <pre><code>pico-8 cartridge
 __lua__
-print(&quot;coucou&quot;)</code></pre></td>
+print(&quot;coucou&quot;)
+</code></pre>
+</td>
 </tr>
 <tr>
 <td>
 
 <pre><code>pico-8 cartridge
 with no section
-at all</code></pre></td>
+at all
+</code></pre>
+</td>
 <td>
 
 <pre><code>pico-8 cartridge
-</code></pre></td>
+</code></pre>
+</td>
 </tr>
 </table>
 
