@@ -37,11 +37,15 @@ while (1) local a = 1
 while (1) do end
 while (1) do@n@end
 while (1)@n@do@n@end
+while (1) end@n@                        -- FAIL
+while (1) return;@n@a = 0
+while (1) return@n@a = 0
+while (1) return a,@n@b                 -- FAIL
+while (1) return a@n@,b                 -- FAIL
+//// needed blank character shenanigans
 function f()while (1) local a = 1 end   -- FAIL
 function f()while (1) local a = 1@n@end -- FAIL
 function f() while (1) local a = 1@n@end
-while (1) end@n@                        -- FAIL
-//// needed blank character shenanigans
 a = 0xFFwhile (a) print(a)
 a = "42"while (a) print(a)              -- FAIL
 a = "42" while (a) print(a)

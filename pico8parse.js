@@ -2345,7 +2345,7 @@
       if (consume('::')) return parseLabelStatement(flowContext);
     }
 
-    // When a `;` is encounted, simply eat it without storing it.
+    // When a `;` is encountered, simply eat it without storing it.
     if (features.emptyStatement) {
       if (consume(';')) {
         if (trackLocations) locations.pop();
@@ -2532,10 +2532,11 @@
 
     var expressions = [];
 
-    if ('end' !== token.value) {
+    if (!isEnd(token)) {
       var expression = parseExpression(flowContext);
       if (null != expression) expressions.push(expression);
-      while (consume(',')) {
+      while (!isEnd(token) && consume(',')) {
+        if (isEnd(token)) raiseUnexpectedToken('<expression>', previousToken);
         expression = parseExpectedExpression(flowContext);
         expressions.push(expression);
       }

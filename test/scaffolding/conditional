@@ -52,6 +52,10 @@ if (1) local a = 1 elseif 2 then local a = 2@n@   -- FAIL
 if (1) local a = 1 end function b()@n@
 if (1) local a = 1 end while 1 do@n@
 if (1) local a = 1 end while 1 do end do@n@
+if (1) return;@n@a = 0
+if (1) return@n@a = 0
+if (1) return a,@n@b                    -- FAIL
+if (1) return a@n@,b                    -- FAIL
 for a=1,2 do if (1) local a = 1@n@end
 //// needed blank character shenanigans
 function f()if (1) local a = 1 end      -- FAIL
