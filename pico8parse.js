@@ -3526,8 +3526,8 @@
     } else {
       if (!options.ignoreStrictP8FileFormat) {
         // Check for header
-        index = input.indexOf("pico-8 cartridge");
-        if (index < 0) raise(null, errors.missingHeader, "pico-8 cartridge");
+        index = input.indexOf('p');
+        if (input.indexOf('\n') < index || "pico-8 cartridge" !== input.slice(index, index+16)) raise(null, errors.missingHeader, "pico-8 cartridge");
         index += 15;
         // Ignore the header line
         while (index < length && !isLineTerminator(input.charCodeAt(++index)));

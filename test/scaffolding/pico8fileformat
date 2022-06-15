@@ -6,6 +6,10 @@ pico-8 cartridge@n@@n@content                                       -- FAIL
 pico-8 cartridge@n@@n@content
  pico-8 cartridge@n@@n@content
 blablapico-8 cartridgeblabla@n@@n@content
+ppico-8 cartridgeblabla@n@@n@content                                -- FAIL
+blappico-8 cartridgeblabla@n@@n@content                             -- FAIL
+pblapico-8 cartridgeblabla@n@@n@content                             -- FAIL
+Ppico-8 cartridgeblabla@n@@n@content
 pico-8 cartridge@n@blabla@n@content
 pico-8 cartridg@n@@n@content                                        -- FAIL
 pico 8 cartridge@n@@n@content                                       -- FAIL

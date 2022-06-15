@@ -112,6 +112,69 @@
       }
     },
     {
+      "source": "ppico-8 cartridgeblabla\n\ncontent",
+      "result": "[1:1] missing header 'pico-8 cartridge'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8"
+      }
+    },
+    {
+      "source": "blappico-8 cartridgeblabla\n\ncontent",
+      "result": "[1:4] missing header 'pico-8 cartridge'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8"
+      }
+    },
+    {
+      "source": "pblapico-8 cartridgeblabla\n\ncontent",
+      "result": "[1:1] missing header 'pico-8 cartridge'",
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8"
+      }
+    },
+    {
+      "source": "Ppico-8 cartridgeblabla\n\ncontent",
+      "result": {
+        "type": "Chunk",
+        "body": [],
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 8
+          },
+          "end": {
+            "line": 2,
+            "column": 8
+          }
+        },
+        "range": [
+          32,
+          32
+        ],
+        "comments": [],
+        "globals": []
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8"
+      }
+    },
+    {
       "source": "pico-8 cartridge\nblabla\ncontent",
       "result": {
         "type": "Chunk",
@@ -143,7 +206,7 @@
     },
     {
       "source": "pico-8 cartridg\n\ncontent",
-      "result": "[1:0] missing header 'pico-8 cartridge'",
+      "result": "[1:1] missing header 'pico-8 cartridge'",
       "options": {
         "comments": true,
         "locations": true,
@@ -154,7 +217,7 @@
     },
     {
       "source": "pico 8 cartridge\n\ncontent",
-      "result": "[1:0] missing header 'pico-8 cartridge'",
+      "result": "[1:1] missing header 'pico-8 cartridge'",
       "options": {
         "comments": true,
         "locations": true,
