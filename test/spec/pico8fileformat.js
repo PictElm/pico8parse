@@ -205,6 +205,116 @@
       }
     },
     {
+      "source": "pico-8 cartridge\n\n__lua__\na = 'valid lua'\n__gfx__\ninvalid lua",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "StringLiteral",
+                "value": null,
+                "raw": "'valid lua'",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 15
+                  }
+                },
+                "range": [
+                  30,
+                  41
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 15
+              }
+            },
+            "range": [
+              26,
+              41
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 15
+          }
+        },
+        "range": [
+          26,
+          41
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8"
+      }
+    },
+    {
       "source": "pico-8 cartridge\n\n\n\n__lua__\n\n\ninvalid lua",
       "result": "[8:8] '=' expected near 'lua'",
       "options": {
@@ -336,8 +446,8 @@
       }
     },
     {
-      "source": "pico-8 cartridge\n\n__lua__\na = \n__gfx__\n__lua__",
-      "result": "[6:7] <expression> expected near '<eof>'",
+      "source": "pico-8 cartridge\n\n__lua__\na = \n__gfx__\n0\n__lua__",
+      "result": "[7:7] <expression> expected near '<eof>'",
       "options": {
         "comments": true,
         "locations": true,
@@ -347,7 +457,7 @@
       }
     },
     {
-      "source": "pico-8 cartridge\n\n__lua__\na = \n__gfx__\n__lua__\n0",
+      "source": "pico-8 cartridge\n\n__lua__\na = \n__gfx__\n__lua__\n0\n",
       "result": {
         "type": "Chunk",
         "body": [
@@ -1723,6 +1833,996 @@
         "ranges": true,
         "scope": true,
         "luaVersion": "PICO-8"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:xyz__\nb = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:xyz__",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__meta:xyz__\n__lua__\na = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 5,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  39,
+                  40
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 5,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  43,
+                  44
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 5,
+                "column": 5
+              }
+            },
+            "range": [
+              39,
+              44
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 5
+          }
+        },
+        "range": [
+          39,
+          44
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 5,
+                "column": 1
+              }
+            },
+            "range": [
+              39,
+              40
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:xyz__garbage\nb = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:123__\nb = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:i j__\nb = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta: k __\nb = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:apparently this too is just fine\n",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
+      }
+    },
+    {
+      "source": "pico-8 cartridge\n\n__lua__\na = 0\n__meta:\n",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "AssignmentStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "a",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 1
+                  }
+                },
+                "range": [
+                  26,
+                  27
+                ],
+                "isLocal": false
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 4,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 4,
+                    "column": 5
+                  }
+                },
+                "range": [
+                  30,
+                  31
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 5
+              }
+            },
+            "range": [
+              26,
+              31
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 5
+          }
+        },
+        "range": [
+          26,
+          31
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "a",
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 1
+              }
+            },
+            "range": [
+              26,
+              27
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.4c"
       }
     }
   ];

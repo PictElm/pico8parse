@@ -91,6 +91,8 @@
     // This option overrides the `strictP8FileFormat` feature, making it possible to parse
     // snippets lacking the proper header and sections.
     , ignoreStrictP8FileFormat: false
+    // Ignore "P8SCII" string escape sequences.
+    , ignoreP8scii: false
   };
 
   function encodeUTF8(codepoint, highMask) {
@@ -1536,7 +1538,8 @@
         return input.charAt(index++);
     }
     if (features.p8scii) {
-      var sequence = readEscapeSequenceP8SCII(escapedChar, sequenceStart);
+      if (options.ignoreP8scii) return '';
+      var sequence = readEscapeSequenceP8scii(escapedChar, sequenceStart);
       if (null !== sequence) return sequence;
     }
 
@@ -1545,7 +1548,7 @@
     return input.charAt(index++);
   }
 
-  function readEscapeSequenceP8SCII(escapedChar, sequenceStart) {
+  function readEscapeSequenceP8scii(escapedChar, sequenceStart) {
     // Some escape sequences might be wrongly parsed/modified/replaced
     // be it here or in the switch above (maybe)
 
@@ -3358,49 +3361,6 @@
     }
     // NOTE: p8 file format layout (not the png.p8 but the text p8)
     , 'PICO-8': {
-      // XXX: (move to appropriate doc please)
-      // The PICO-8 file format (.p8, text) defines a set of rules that must be followed
-      // for a file to be correctly loaded:
-      //
-      //    - the first line of the file must contain the mention "pico-8 cartridge"
-      //      (16 characters, case sensitive) any character may be present before and
-      //      after (no new-line sequence before, obviously)
-      //
-      //    - the next line is entirely ignored (may it contain one of the sequences
-      //      specified after, it is not parsed and is discarded)
-      //
-      //    - there exists (as of 0.2.2) 7 sections in a p8 file each identified by a set
-      //      sequence of character (similar to Python's dunders) from the list bellow
-      //
-      //    - a section is entered as soon as a line containing on of these sequences is
-      //      passed; the following lines are part of said section until any next one
-      //      of these or EOF
-      //
-      //    - these sequences are only valid section opening if they are present at
-      //      the very beginning of the line; any amount of any character may follow
-      //
-      //    - outside of section (typically right after the "pico-8 cartridge" header,
-      //      before any sequence), lines are simply discarded
-      //
-      //    - as a section is closed by a new one, multiple section under the same sequence
-      //      can be present within the file; section for a given sequence are concatenated
-      //      in order of appearance
-      //
-      //    - only within a __lua__ section may PICO-8 Lua be parsed, starting on the very
-      //      next line
-      //
-      //    - a __lua__ section may be closed at any point (eg. in the middle of an
-      //      assignment) and resume in a next __lua__ section, this is still considered
-      //      valid
-      //
-      //    - _usually_, the first line is as bellow, the second line present a version
-      //      number (noted VER) and each section is present once in the order of the
-      //      list of sequences hereafter
-      //
-      //  ```
-      //  pico-8 cartridge // http://www.pico-8.com
-      //  version VER
-      //  ```
         strictP8FileFormat: true
       , p8Sections: [
           '__lua__'
@@ -3420,45 +3380,6 @@
       , bitwiseOperators: true
       , integerDivision: false
       // Below rules were added for PICO-8
-      // XXX: (move to appropriate doc please)
-      // The added syntax for singleLine[..] is pretty broken, see the test
-      // for some kind of overview (./test/scaffolding/conditional)
-      //
-      // With singleLineIf, the following becomes valid (note the 'do'):
-      //    if ::= 'if' '(' exp ')' 'do' block {elif} ['else' block] 'end'
-      // This code has an error (missing space after "name()"):
-      //    ```
-      //    function name()if (exp) block
-      //      block
-      //    end
-      //    ```
-      // This code prints "no":
-      //    ```
-      //    if (1) do local a = "yes"
-      //      print(a or "no")
-      //    end
-      //    ```
-      // And this code too:
-      //    ```
-      //    if (nil) else do local a = "yes"
-      //      print(a or "no")
-      //    end
-      //    ```
-      // So the actual added syntax is closer to:
-      //    if ::= '\s' 'if' '(' exp ')'
-      //          [ block [ 'else' [ 'do' block_else_do '\n' ]
-      //                    block_else_then
-      //                  ] '\n'
-      //          | [ 'do' block_if_do '\n'
-      //            | 'then'
-      //            ] block_if_then {elif} ['else' block] 'end'
-      //          ]
-      // ... where `block_if_do` has for parent `block_if_then`
-      // and `block_else_do` has for parent `block_else_then`
-      //
-      // singleLineIf and singleLineWhile cannot be empty
-      // `if (1)` error, `if (1) else` no error, `if (1) end do` no error (closing with a proper 'end')
-      // `while (1)` error
       , binLiteral: true           // eg. 0b101010
       , noExponentLiteral: true    // eg. 1e-1
       , singleLineIf: true         // if ::= 'if' '(' exp ')' block ['else' block] '\n'
@@ -3470,8 +3391,8 @@
       , noDeepLongStringComments: true // '--[=*[' does not start a multiline (longstring) comment
       , bitshiftAdditionalOperators: true // a >>> b   a <<> b   a >>< b (there assignment operators are added by "assignmentOperators: true")
       , peekPokeOperators: true    // @a   %a   $a
-      , backslashIntegerDivision: true  // a \ b (also disables a // b ie. **makes it invalid** (maybe -- see "integerDivision: false" above), same about assignment operators)
-      , smileyBitwiseXor: true      // a ^^ b (also disables a ~ b ie. **makes it invalid** (maybe), same about assignment operators)
+      , backslashIntegerDivision: true // a \ b (also disables a // b ie. **makes it invalid** (maybe -- see "integerDivision: false" above), same about assignment operators)
+      , smileyBitwiseXor: true     // a ^^ b (also disables a ~ b ie. **makes it invalid** (maybe), same about assignment operators)
     }
     , 'PICO-8-0.2.2': {
         _inherits: ['PICO-8-0.2.1']
@@ -3484,9 +3405,22 @@
       , allowEmptySingleLineWhile: true // 'while' single line syntax may be empty of statement using a ';'
     }
     , 'PICO-8-0.2.4': {
-      _inherits: ['PICO-8-0.2.3'],
-      allowAnyBeforeSingleLineIf: true, // 'if' single line no longer needs to be preceded by a blank or number
-      allowAnyBeforeSingleLineWhile: true, // 'while' single line no longer needs to be preceded by a blank or number
+        _inherits: ['PICO-8-0.2.3']
+      , allowAnyBeforeSingleLineIf: true // 'if' single line no longer needs to be preceded by a blank or number
+      , allowAnyBeforeSingleLineWhile: true // 'while' single line no longer needs to be preceded by a blank or number
+    }
+    , 'PICO-8-0.2.4c': {
+        _inherits: ['PICO-8-0.2.4']
+      , p8Sections: [
+          '__lua__'
+        , '__gfx__'
+        , '__gff__'
+        , '__label__'
+        , '__map__'
+        , '__sfx__'
+        , '__music__'
+        , '__meta:' // (officially:) << with a heading of '__meta:somestring__' are preserved by, but not (yet?) utilised by PICO-8 itself >>
+      ]
     }
   };
 

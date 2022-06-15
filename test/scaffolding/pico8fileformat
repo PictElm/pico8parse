@@ -11,13 +11,14 @@ pico-8 cartridg@n@@n@content                                        -- FAIL
 pico 8 cartridge@n@@n@content                                       -- FAIL
 pico-8 cartridge@n@@n@__gfx__@n@invalid lua
 pico-8 cartridge@n@@n@__lua__@n@invalid lua                         -- FAIL
+pico-8 cartridge@n@@n@__lua__@n@a = 'valid lua'@n@__gfx__@n@invalid lua
 pico-8 cartridge@n@@n@@n@@n@__lua__@n@@n@@n@invalid lua             -- FAIL
 pico-8 cartridge@n@@n@@n@@n@z__lua__z@n@@n@@n@invalid lua
 pico-8 cartridge@n@@n@__gfx__@n@@n@@n@blabla
 pico-8 cartridge@n@@n@__xyz__@n@blabla
 pico-8 cartridge@n@@n@__lua__invalid lua@n@
-pico-8 cartridge@n@@n@__lua__@n@a = @n@__gfx__@n@__lua__@n@         -- FAIL
-pico-8 cartridge@n@@n@__lua__@n@a = @n@__gfx__@n@__lua__@n@0
+pico-8 cartridge@n@@n@__lua__@n@a = @n@__gfx__@n@0@n@__lua__@n@     -- FAIL
+pico-8 cartridge@n@@n@__lua__@n@a = @n@__gfx__@n@__lua__@n@0@n@
 pico-8 cartridge@n@__lua__@n@a = @n@__lua__@n@0                     -- FAIL
 pico-8 cartridge@n@__lua__@n@a = [[@n@__gfx__]]@n@__lua__@n@]]      -- FAIL
 pico-8 cartridge@n@@n@__lua__@n@a = [[@n@__gfx__]]@n@__lua__@n@]]
@@ -33,3 +34,15 @@ pico-8 cartridge@n@@n@__lua__@n@a = [[@n@z__gfx__@n@__lua__@n@]]@n@__gfx__000
 pico-8 cartridge@n@@n@__lua__@n@@n@a = 0@n@@n@__gfx__@n@@n@000@n@@n@__gff__@n@@n@111@n@@n@__lua__@n@@n@b = 0@n@@n@__gfx__@n@@n@222
 pico-8 cartridge@n@@n@__gfx__@n@@n@__xyz__@n@blabla
 pico-8 cartridge@n@@n@__lua__@n@@n@__x = 0@n@dada()
+
+// { "luaVersion": "PICO-8-0.2.4c" }
+// `__meta:somestring__`
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:xyz__@n@b = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:xyz__
+pico-8 cartridge@n@@n@__meta:xyz__@n@__lua__@n@a = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:xyz__garbage@n@b = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:123__@n@b = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:i j__@n@b = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta: k __@n@b = 0
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:apparently this too is just fine@n@
+pico-8 cartridge@n@@n@__lua__@n@a = 0@n@__meta:@n@
