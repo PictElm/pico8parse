@@ -44,7 +44,7 @@ Input Lua code on the left side and press the Parse button to generate the AST a
     height: 42vh;
     font-family: monospace;
     resize: none;
-    white-space: nowrap;
+    white-space: pre;
     overflow: auto;
   }
   input[type=checkbox] { margin-bottom: revert; }
