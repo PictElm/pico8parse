@@ -116,3 +116,10 @@ a = ~ 1 ~ 2                             -- FAIL
 a = 1 ^^ 1
 a = 1 ^^                                -- FAIL
 a = ^^ 2                                -- FAIL
+
+// { "luaVersion": "PICO-8-0.2.5", "ignoreStrictP8FileFormat": true }
+// alsoNormalBitwiseXor
+a = 1 ~ 2
+a = ~ 1
+a = ~ 1 ~ 2
+a ~= b                                  -- FAIL

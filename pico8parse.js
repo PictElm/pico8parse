@@ -84,7 +84,7 @@
     // The variable's name will be passed as the only parameter
     , onLocalDeclaration: null
     // The version of Lua targeted by the parser (string; allowed values are
-    // '5.1', '5.2', '5.3', 'LuaJIT', 'PICO-8', 'PICO-8-0.2.1'..'PICO-8-0.2.4').
+    // '5.1', '5.2', '5.3', 'LuaJIT', 'PICO-8', 'PICO-8-0.2.1'..'PICO-8-0.2.5').
     , luaVersion: '5.1'
     // Encoding mode: how to interpret code units higher than U+007F in input.
     , encodingMode: 'none'
@@ -1946,6 +1946,7 @@
         , features.bitshiftAdditionalOperators && '<<>='
         , features.bitshiftAdditionalOperators && '>><='
         , features.smileyBitwiseXor && '^^='
+        // note: no '~=' (as of yet..) //, features.alsoNormalBitwiseXor && '~='?
       ], token.value) >= 0;
     }
     return false;
@@ -3079,7 +3080,7 @@
         case 42: case 47: case 37: return 10; // * / %
         case 43: case 45: return 9; // + -
         case 38: return 6; // &
-        case 126: return features.smileyBitwiseXor ? 0 : 5; // ~
+        case 126: return features.smileyBitwiseXor && !features.alsoNormalBitwiseXor ? 0 : 5; // ~
         case 124: return 4; // |
         case 60: case 62: return 3; // < >
       }
@@ -3421,6 +3422,10 @@
         , '__music__'
         , '__meta:' // (officially:) << with a heading of '__meta:somestring__' are preserved by, but not (yet?) utilised by PICO-8 itself >>
       ]
+    }
+    , 'PICO-8-0.2.5': {
+        _inherits: ['PICO-8-0.2.4c']
+      , alsoNormalBitwiseXor: true // re-enables a ~ b (i hate you)
     }
   };
 
