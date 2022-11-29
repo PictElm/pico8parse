@@ -53,7 +53,7 @@
 }(this, 'pico8parse', function (exports) {
   'use strict';
 
-  exports.version = "0.4.0";
+  exports.version = "0.4.1";
 
   var input, options, length, features, encodingMode;
 
