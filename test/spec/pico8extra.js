@@ -3365,6 +3365,412 @@
         "luaVersion": "PICO-8-0.2.3",
         "ignoreStrictP8FileFormat": true
       }
+    },
+    {
+      "source": "if btn(⬅️) then\n move(p1,-1)\nend",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "IfStatement",
+            "clauses": [
+              {
+                "type": "IfClause",
+                "condition": {
+                  "type": "CallExpression",
+                  "base": {
+                    "type": "Identifier",
+                    "name": "btn",
+                    "loc": {
+                      "start": {
+                        "line": 1,
+                        "column": 3
+                      },
+                      "end": {
+                        "line": 1,
+                        "column": 6
+                      }
+                    },
+                    "range": [
+                      3,
+                      6
+                    ],
+                    "isLocal": false
+                  },
+                  "arguments": [
+                    {
+                      "type": "Identifier",
+                      "name": "⬅️",
+                      "loc": {
+                        "start": {
+                          "line": 1,
+                          "column": 7
+                        },
+                        "end": {
+                          "line": 1,
+                          "column": 9
+                        }
+                      },
+                      "range": [
+                        7,
+                        9
+                      ],
+                      "isLocal": false
+                    }
+                  ],
+                  "loc": {
+                    "start": {
+                      "line": 1,
+                      "column": 3
+                    },
+                    "end": {
+                      "line": 1,
+                      "column": 10
+                    }
+                  },
+                  "range": [
+                    3,
+                    10
+                  ]
+                },
+                "body": [
+                  {
+                    "type": "CallStatement",
+                    "expression": {
+                      "type": "CallExpression",
+                      "base": {
+                        "type": "Identifier",
+                        "name": "move",
+                        "loc": {
+                          "start": {
+                            "line": 2,
+                            "column": 1
+                          },
+                          "end": {
+                            "line": 2,
+                            "column": 5
+                          }
+                        },
+                        "range": [
+                          17,
+                          21
+                        ],
+                        "isLocal": false
+                      },
+                      "arguments": [
+                        {
+                          "type": "Identifier",
+                          "name": "p1",
+                          "loc": {
+                            "start": {
+                              "line": 2,
+                              "column": 6
+                            },
+                            "end": {
+                              "line": 2,
+                              "column": 8
+                            }
+                          },
+                          "range": [
+                            22,
+                            24
+                          ],
+                          "isLocal": false
+                        },
+                        {
+                          "type": "UnaryExpression",
+                          "operator": "-",
+                          "argument": {
+                            "type": "NumericLiteral",
+                            "value": 1,
+                            "raw": "1",
+                            "loc": {
+                              "start": {
+                                "line": 2,
+                                "column": 10
+                              },
+                              "end": {
+                                "line": 2,
+                                "column": 11
+                              }
+                            },
+                            "range": [
+                              26,
+                              27
+                            ]
+                          },
+                          "loc": {
+                            "start": {
+                              "line": 2,
+                              "column": 9
+                            },
+                            "end": {
+                              "line": 2,
+                              "column": 11
+                            }
+                          },
+                          "range": [
+                            25,
+                            27
+                          ]
+                        }
+                      ],
+                      "loc": {
+                        "start": {
+                          "line": 2,
+                          "column": 1
+                        },
+                        "end": {
+                          "line": 2,
+                          "column": 12
+                        }
+                      },
+                      "range": [
+                        17,
+                        28
+                      ]
+                    },
+                    "loc": {
+                      "start": {
+                        "line": 2,
+                        "column": 1
+                      },
+                      "end": {
+                        "line": 2,
+                        "column": 12
+                      }
+                    },
+                    "range": [
+                      17,
+                      28
+                    ]
+                  }
+                ],
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "column": 12
+                  }
+                },
+                "range": [
+                  0,
+                  28
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 3,
+                "column": 3
+              }
+            },
+            "range": [
+              0,
+              32
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 3
+          }
+        },
+        "range": [
+          0,
+          32
+        ],
+        "comments": [],
+        "globals": [
+          {
+            "type": "Identifier",
+            "name": "btn",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 3
+              },
+              "end": {
+                "line": 1,
+                "column": 6
+              }
+            },
+            "range": [
+              3,
+              6
+            ],
+            "isLocal": false
+          },
+          {
+            "type": "Identifier",
+            "name": "⬅️",
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 7
+              },
+              "end": {
+                "line": 1,
+                "column": 9
+              }
+            },
+            "range": [
+              7,
+              9
+            ],
+            "isLocal": false
+          },
+          {
+            "type": "Identifier",
+            "name": "move",
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 1
+              },
+              "end": {
+                "line": 2,
+                "column": 5
+              }
+            },
+            "range": [
+              17,
+              21
+            ],
+            "isLocal": false
+          },
+          {
+            "type": "Identifier",
+            "name": "p1",
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 6
+              },
+              "end": {
+                "line": 2,
+                "column": 8
+              }
+            },
+            "range": [
+              22,
+              24
+            ],
+            "isLocal": false
+          }
+        ]
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
+    },
+    {
+      "source": "local █▒🐱⬇️░✽●♥☉웃⌂⬅️😐♪🅾️◆…➡️★⧗⬆️ˇ∧❎▤▥ = 0",
+      "result": {
+        "type": "Chunk",
+        "body": [
+          {
+            "type": "LocalStatement",
+            "variables": [
+              {
+                "type": "Identifier",
+                "name": "█▒🐱⬇️░✽●♥☉웃⌂⬅️😐♪🅾️◆…➡️★⧗⬆️ˇ∧❎▤▥",
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 40
+                  }
+                },
+                "range": [
+                  6,
+                  40
+                ],
+                "isLocal": true
+              }
+            ],
+            "init": [
+              {
+                "type": "NumericLiteral",
+                "value": 0,
+                "raw": "0",
+                "loc": {
+                  "start": {
+                    "line": 1,
+                    "column": 43
+                  },
+                  "end": {
+                    "line": 1,
+                    "column": 44
+                  }
+                },
+                "range": [
+                  43,
+                  44
+                ]
+              }
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 44
+              }
+            },
+            "range": [
+              0,
+              44
+            ]
+          }
+        ],
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 44
+          }
+        },
+        "range": [
+          0,
+          44
+        ],
+        "comments": [],
+        "globals": []
+      },
+      "options": {
+        "comments": true,
+        "locations": true,
+        "ranges": true,
+        "scope": true,
+        "luaVersion": "PICO-8-0.2.1",
+        "ignoreStrictP8FileFormat": true
+      }
     }
   ];
 }));

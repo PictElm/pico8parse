@@ -3380,6 +3380,7 @@
       , imaginaryNumbers: false
       , bitwiseOperators: true
       , integerDivision: false
+      , extendedIdentifiers: true
       // Below rules were added for PICO-8
       , binLiteral: true           // eg. 0b101010
       , noExponentLiteral: true    // eg. 1e-1

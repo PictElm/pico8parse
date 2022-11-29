@@ -38,3 +38,8 @@ if (true) ?"yes"
 ???a))                 -- " print( print( print( a)))"
 ?-?a)                  -- " print(- print(a))"
 ??a+?a))               -- " print( print(a+ print(a)))"
+
+// { "luaVersion": "PICO-8-0.2.1", "ignoreStrictP8FileFormat": true }
+// extendedIdentifiers
+if btn(⬅️) then@n@ move(p1,-1)@n@end
+local █▒🐱⬇️░✽●♥☉웃⌂⬅️😐♪🅾️◆…➡️★⧗⬆️ˇ∧❎▤▥ = 0
