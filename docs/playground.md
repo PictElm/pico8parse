@@ -10,6 +10,9 @@ Input Lua code on the left side and press the Parse button to generate the AST a
     <input type="checkbox" id="ignoreStrictP8FileFormat" name="ignoreStrictP8FileFormat" checked>
     <label for="ignoreStrictP8FileFormat">Ignore P8 file format (eg. header)</label>
     &middot;
+    <input type="checkbox" id="ignoreP8scii" name="ignoreP8scii" checked>
+    <label for="ignoreP8scii">Ignore invalid P8ASCII escape sequences</label>
+    &middot;
     <select id="encodingMode" name="encodingMode">
       <option value="pseudo-latin1">pseudo-latin1</option>
       <option value="x-user-defined">x-user-defined</option>
@@ -82,6 +85,7 @@ Input Lua code on the left side and press the Parse button to generate the AST a
       , outputEditor = makeColoredTextarea(_get('output'), _makeLexerJSON)
       , version = _get('version')
       , ignoreStrictP8FileFormat = _get('ignoreStrictP8FileFormat')
+      , ignoreP8scii = _get('ignoreP8scii')
       , encodingMode = _get('encodingMode')
       , comments = _get('comments')
       , scope = _get('scope')
@@ -114,6 +118,7 @@ Input Lua code on the left side and press the Parse button to generate the AST a
         , options = (Object.assign || _assign)({
               luaVersion: version.value
             , ignoreStrictP8FileFormat: ignoreStrictP8FileFormat.checked
+            , ignoreP8scii: ignoreP8scii.checked
             , encodingMode: encodingMode.value
             , comments: comments.checked
             , scope: scope.checked
