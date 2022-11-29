@@ -1,6 +1,6 @@
 {
   "name": "pico8parse",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A Lua parser in JavaScript, with support for the PICO-8 flavour",
   "keywords": [
     "ast",
