@@ -103,7 +103,7 @@
     <select id="encodingMode" name="encodingMode">
       <option value="pseudo-latin1">pseudo-latin1</option>
       <option value="x-user-defined">x-user-defined</option>
-      <option value="none">none (discard)</option>
+      <option value="none" selected>none (discard)</option>
     </select>
     <label for="encodingMode">Encoding mode</label>
     &middot;
@@ -265,7 +265,7 @@
         if (stream.next(/^\b(_draw|_init|_update|_update60|abs|add|all|assert|atan2|band|bnot|bor|btn|btnp|bxor|camera|cartdata|cd|ceil|chr|circ|circfill|clip|cls|cocreate|color|coresume|cos|costatus|count|cstore|cursor|del|deli|dget|dir|dset|exit|export|extcmd|fget|fillp|flip|flr|folder|foreach|fset|getmetatable|help|holdframe|import|info|install_demos|install_games|keyconfig|line|load|ls|map|mapdraw|max|memcpy|memset|menuitem|mget|mid|min|mkdir|mset|music|ord|oval|ovalfill|pack|pairs|pal|palt|peek|pget|poke|print|printh|pset|rawequal|rawget|rawlen|rawset|reboot|rect|rectfill|reload|resume|rnd|run|save|select|setmetatable|sfx|sget|sgn|shl|shr|shutdown|sin|split|splore|spr|sqrt|srand|sset|sspr|stat|stop|sub|time|tline|tonum|tostr|trace|type|unpack|yield)\b/)) return 'special';
         if (stream.next("?")) return 'special';
         if (pico8Mode && stream.next(/^__(lua|gfx|gff|label|map|sfx|music)__/)) return 'keyword';
-        if (stream.next(/^[A-Z_a-z][0-9A-Z_a-z]*/)) return stream.peek(/^\s*\(/) ? 'function' : 'identifier';
+        if (stream.next(/^[A-Z_a-z\u0080-\uffff][0-9A-Z_a-z\u0080-\uffff]*/)) return stream.peek(/^\s*\(/) ? 'function' : 'identifier';
         if (stream.next(/^[-+*/\\^|&#~=:.;,@$%<>()[\]{}]/)) return 'punctuation';
         //if (stream.skip(/^./)) return true;
       };
