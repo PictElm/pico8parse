@@ -70,7 +70,7 @@
           </div>
           <div class="span6" style="padding-top: 35px;">
             <div class="btn-group">
-              <a class="btn" href="https://github.com/PictElm/pico8parse">GitHub</a>
+              <a class="btn" href="https://github.com/naclsn/pico8parse">GitHub</a>
               <a class="btn" href="https://github.com/fstirlitz/luaparse">Original Project</a>
               <a class="btn" href="test/index.html">Tests</a>
               <a class="btn" href="playground.html">Playground</a>
@@ -98,10 +98,12 @@
 <li><code>&#39;PICO-8-0.2.2&#39;</code> (adds support for some escape sequences)</li>
 <li><code>&#39;PICO-8-0.2.3&#39;</code> (empty <code>if</code>/<code>while</code>, <code>?</code> on same line)</li>
 <li><code>&#39;PICO-8-0.2.4&#39;</code> (any character before <code>if</code>/<code>while</code>)</li>
+<li><code>&#39;PICO-8-0.2.4c&#39;</code> (special <code>__meta:</code> sections)</li>
+<li><code>&#39;PICO-8-0.2.5&#39;</code> (normal bitwise xor)</li>
 </ul>
 <p>If the targeted version is not in this list, the closest preceding version should have the same syntaxes.</p>
 <blockquote>
-<p>TL;DR: PICO-8 Lua differs from standard Lua because it is preprocessed; for example the <code>&#39;?&#39;</code> &quot;operator&quot; is simply replaced with <code>&#39; print(&#39;</code>. The way this is done introduces many cursed syntaxes (and I don&#39;t want to maintain a list of these). To see the result of this preprocessing you can use <a href="https://gist.github.com/PictElm/b85467b379d676481e6a4483ee2ef5a0">this same trick</a> (until fixed) with a cartridge containing exactly:</p>
+<p>TL;DR: PICO-8 Lua differs from standard Lua because it is preprocessed; for example the <code>&#39;?&#39;</code> &quot;operator&quot; is simply replaced with <code>&#39; print(&#39;</code>. The way this is done introduces many cursed syntaxes (and I don&#39;t want to maintain a list of these). To see the result of this preprocessing you can use <a href="https://gist.github.com/naclsn/b85467b379d676481e6a4483ee2ef5a0">this same trick</a> (until fixed) with a cartridge containing exactly:</p>
 <pre><code>pico-8 cartridge
 
 __lua__
