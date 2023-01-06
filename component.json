@@ -1,6 +1,6 @@
 {
   "name": "pico8parse",
-  "repository": "PictElm/pico8parse",
+  "repository": "naclsn/pico8parse",
   "description": "A Lua parser in JavaScript, with support for the PICO-8 flavour",
   "version": "0.4.0",
   "keywords": ["ast", "lua", "parser", "parsing", "pico8"],

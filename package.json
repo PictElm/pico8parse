@@ -9,8 +9,8 @@
     "parsing",
     "pico8"
   ],
-  "homepage": "https://pictelm.github.io/pico8parse/",
-  "bugs": "https://github.com/PictElm/pico8parse/issues",
+  "homepage": "https://naclsn.github.io/pico8parse/",
+  "bugs": "https://github.com/naclsn/pico8parse/issues",
   "license": "MIT",
   "originalAuthor": "Oskar Schöldström <public@oxy.fi> (http://www.oxy.fi/)",
   "author": "Grenier Célestin",
@@ -27,7 +27,7 @@
   "man": "./docs/pico8parse.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PictElm/pico8parse.git"
+    "url": "https://github.com/naclsn/pico8parse.git"
   },
   "scripts": {
     "test": "make qa",

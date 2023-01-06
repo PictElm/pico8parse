@@ -9,10 +9,12 @@ The values added for the parser `luaVersion` option are:
  - `'PICO-8-0.2.2'` (adds support for some escape sequences)
  - `'PICO-8-0.2.3'` (empty `if`/`while`, `?` on same line)
  - `'PICO-8-0.2.4'` (any character before `if`/`while`)
+ - `'PICO-8-0.2.4c'` (special `__meta:` sections)
+ - `'PICO-8-0.2.5'` (normal bitwise xor)
 
 If the targeted version is not in this list, the closest preceding version should have the same syntaxes.
 
-> TL;DR: PICO-8 Lua differs from standard Lua because it is preprocessed; for example the `'?'` "operator" is simply replaced with `' print('`. The way this is done introduces many cursed syntaxes (and I don't want to maintain a list of these). To see the result of this preprocessing you can use [this same trick](https://gist.github.com/PictElm/b85467b379d676481e6a4483ee2ef5a0) (until fixed) with a cartridge containing exactly:
+> TL;DR: PICO-8 Lua differs from standard Lua because it is preprocessed; for example the `'?'` "operator" is simply replaced with `' print('`. The way this is done introduces many cursed syntaxes (and I don't want to maintain a list of these). To see the result of this preprocessing you can use [this same trick](https://gist.github.com/naclsn/b85467b379d676481e6a4483ee2ef5a0) (until fixed) with a cartridge containing exactly:
 > ```
 > pico-8 cartridge
 > 
